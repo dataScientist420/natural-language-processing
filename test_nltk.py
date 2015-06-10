@@ -28,15 +28,15 @@ from nltk import ne_chunk
 from nltk import WordNetLemmatizer
 from random import randrange
 
-dic = ["I would like a babysitter this friday night!",
-       "Clear my pool now",
-       "babysitter 6 to 8",
-       "wash my car",
-       "shovel my driveway"]
+l_sent = ["I would like a babysitter this friday night!",
+          "Clear my pool now",
+          "babysitter 6 to 8",
+          "wash my car",
+          "shovel my driveway"]
 
 if __name__ == "__main__":
     # RANDOM SENTENCE
-    sentence = dic[randrange(0, len(dic))]
+    sentence = l_sent[randrange(0, len(l_sent))]
 
     # TOKENISATION
     words = tokenize.word_tokenize(sentence)
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     entity = ne_chunk(tags)
     entity.draw()
 
-    # LEMMATIZE
+    # LEMMATIZING
     lem_sentence = ""
     lematizer = WordNetLemmatizer()
     for w in sentence: lem_sentence += lematizer.lemmatize(w)
