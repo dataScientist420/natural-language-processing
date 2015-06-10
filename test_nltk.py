@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """***************************************************************************** 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,10 +25,19 @@ from nltk.corpus import state_union
 from nltk import pos_tag
 from nltk import RegexpParser
 from nltk import ne_chunk
+from nltk import WordNetLemmatizer
+from random import randrange
 
-sentence = "It is very important to be pythonly while you are pythoning with python!"
+dic = ["I would like a babysitter this friday night!",
+       "Clear my pool now",
+       "babysitter 6 to 8",
+       "wash my car",
+       "shovel my driveway"]
 
 if __name__ == "__main__":
+    # RANDOM SENTENCE
+    sentence = dic[randrange(0, len(dic))]
+
     # TOKENISATION
     words = tokenize.word_tokenize(sentence)
 
@@ -36,23 +47,29 @@ if __name__ == "__main__":
 
     # STEMMING
     porter_stem = PorterStemmer()
-    new_sentence = ""
-    for w in sentence: new_sentence += porter_stem.stem(w)
+    stem_sentence = ""
+    for w in sentence: stem_sentence += porter_stem.stem(w)
 
     # SPEECH TAGGING 
-    postag = pos_tag(words)
+    tags = pos_tag(words)
 
     # CHUNKING
     regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
-    chunk = regex.parse(postag)
+    chunk = regex.parse(tags)
     chunk.draw()
 
     # ENTITY RECOGNITION
-    entity = ne_chunk(postag)
+    entity = ne_chunk(tags)
     entity.draw()
+
+    # LEMMATIZE
+    lem_sentence = ""
+    lematizer = WordNetLemmatizer()
+    for w in sentence: lem_sentence += lematizer.lemmatize(w)
     
     print "\nSENTENCE\n", sentence
     print "\nTOKENS\n", words
     print "\nFILTERED WORDS\n", filtered_words  
-    print "\nSTEMMING\n", new_sentence
-    print "\nTAGGING\n", postag
+    print "\nSTEMMING\n", stem_sentence
+    print "\nTAGGING\n", tags
+    print "\nLEMMATIZING\n", lem_sentence
