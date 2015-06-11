@@ -42,7 +42,7 @@ if __name__ == "__main__":
     # TOKENISATION
     words = tokenize.word_tokenize(sentence)
 
-    # STOPPING UNUSELESS WORDS
+    # FILTERING TOKENS 
     stop_words = set(stopwords.words("english")) 
     filtered_words = [w for w in words if w not in stop_words]
 
