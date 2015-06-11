@@ -26,6 +26,7 @@ from nltk import pos_tag
 from nltk import RegexpParser
 from nltk import ne_chunk
 from nltk import WordNetLemmatizer
+from nltk import wordnet
 from random import randrange
 
 l_sent = ["I would like a babysitter this friday night!",
@@ -45,13 +46,8 @@ if __name__ == "__main__":
     stop_words = set(stopwords.words("english")) 
     filtered_words = [w for w in words if w not in stop_words]
 
-    # STEMMING
-    porter_stem = PorterStemmer()
-    stem_sentence = ""
-    for w in sentence: stem_sentence += porter_stem.stem(w)
-
     # SPEECH TAGGING 
-    tags = pos_tag(words)
+    tags = pos_tag(filtered_words)
 
     # CHUNKING
     regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
@@ -61,15 +57,8 @@ if __name__ == "__main__":
     # ENTITY RECOGNITION
     entity = ne_chunk(tags)
     entity.draw()
-
-    # LEMMATIZING
-    lem_sentence = ""
-    lematizer = WordNetLemmatizer()
-    for w in sentence: lem_sentence += lematizer.lemmatize(w)
     
     print "\nSENTENCE\n", sentence
     print "\nTOKENS\n", words
-    print "\nFILTERED WORDS\n", filtered_words  
-    print "\nSTEMMING\n", stem_sentence
+    print "\nFILTERED nTOKENS\n", filtered_words  
     print "\nTAGGING\n", tags
-    print "\nLEMMATIZING\n", lem_sentence
