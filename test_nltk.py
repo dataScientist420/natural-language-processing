@@ -20,13 +20,9 @@ Date: 07-06-2015
 
 from nltk import tokenize
 from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
-from nltk.corpus import state_union
 from nltk import pos_tag
 from nltk import RegexpParser
 from nltk import ne_chunk
-from nltk import WordNetLemmatizer
-from nltk import wordnet
 from random import randrange
 
 l_sent = ["I would like a babysitter this friday night!",
