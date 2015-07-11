@@ -18,9 +18,9 @@ Author: Victor Neville
 Date: 11-07-2015
 *****************************************************************************"""
 
-if __name__ == "__main__":
-    from nltk.corpus import wordnet
+from nltk.corpus import wordnet
 
+if __name__ == "__main__":
     w0 = "ship"
     w1 = "boat"
     synonyms = []
@@ -38,6 +38,5 @@ if __name__ == "__main__":
     syns1 = wordnet.synset(w1+".n.01")
 
     print "synonyms (", w0, ") :\n", synonyms
-    print "antonyms (", w0, ") :\n", antonyms
-    
+    print "antonyms (", w0, ") :\n", antonyms    
     print w0, "and", w1, "are", syns0.wup_similarity(syns1), "similar"
