@@ -21,8 +21,8 @@ Date: 11-07-2015
 from nltk.corpus import wordnet
 
 if __name__ == "__main__":
-    w0 = "ship"
-    w1 = "boat"
+    w0 = "car"
+    w1 = "truck"
     synonyms = []
     antonyms = []
     syns = wordnet.synsets(w0)
