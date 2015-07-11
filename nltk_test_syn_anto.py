@@ -20,12 +20,15 @@ Date: 11-07-2015
 
 from nltk.corpus import wordnet
 
+w0 = "dark"
+w1 = "black"
+
 if __name__ == "__main__":
-    w0 = "car"
-    w1 = "truck"
     synonyms = []
     antonyms = []
     syns = wordnet.synsets(w0)
+    syns0 = wordnet.synset(w0+".n.01")
+    syns1 = wordnet.synset(w1+".n.01")
 
     # rempit les listes des synonymes/antonymes pour w0
     for s in syns:
@@ -34,9 +37,6 @@ if __name__ == "__main__":
             if (l.antonyms()):
                 antonyms.append(l.antonyms()[0].name())
 
-    syns0 = wordnet.synset(w0+".n.01")
-    syns1 = wordnet.synset(w1+".n.01")
-
-    print "synonyms (", w0, ") :\n", synonyms
-    print "antonyms (", w0, ") :\n", antonyms    
+    print "synonyms (", w0, "):\n", synonyms
+    print "antonyms (", w0, "):\n", antonyms    
     print w0, "and", w1, "are", syns0.wup_similarity(syns1), "similar"
