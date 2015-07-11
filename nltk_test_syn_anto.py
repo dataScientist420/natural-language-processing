@@ -37,6 +37,6 @@ if __name__ == "__main__":
             if (l.antonyms()):
                 antonyms.append(l.antonyms()[0].name())
 
-    print "synonyms (", w0, "):\n", synonyms
-    print "antonyms (", w0, "):\n", antonyms    
-    print w0, "and", w1, "are", syns0.wup_similarity(syns1), "similar"
+    print "\nSYNONYMS (", w0, "):\n", synonyms
+    print "\nANTONYMS (", w0, "):\n", antonyms     
+    print "\n", w0, "and", w1, "are", syns0.wup_similarity(syns1), "similar"
