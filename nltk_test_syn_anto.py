@@ -30,7 +30,6 @@ if __name__ == "__main__":
     syns0 = wordnet.synset(w0+".n.01")
     syns1 = wordnet.synset(w1+".n.01")
 
-    # rempit les listes des synonymes/antonymes pour w0
     for s in syns:
         for l in s.lemmas():
             synonyms.append(l.name())
