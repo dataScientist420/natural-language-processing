@@ -63,13 +63,13 @@ l_sent = ["I would like a babysitter this friday night!",
           "wash my car",
           "shovel my driveway"]
 
-# Cette liste contient des mots clés extraites des phrases ci-dessous  
+# Cette liste contient des mots clés extraits des phrases ci-dessous  
 keyword = ["babysitter", "pool", "car", "driveway"]
 
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
-    # Creation d'une liste avec les synonymes de chaque type
+    # Creation d'une liste avec les synonymes de chaque mot-clé
     synonym = []
     for w in range(len(keyword)):
         synonym.append(get_synonyms(keyword[w]))
