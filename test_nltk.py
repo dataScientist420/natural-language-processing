@@ -31,7 +31,6 @@ import sys
 
 MIN_LENGTH = (3, None)
 
-
 def getsynonymes(word):
     synonyms = []
     if type(word) == str:
@@ -44,7 +43,6 @@ def getsynonymes(word):
 def inputisvalid(sen):
     valid = False
     length = len(sen)
-    
     if type(sen) == str and length >= MIN_LENGTH[0]:
         end_symbols = 0
         valid = True
