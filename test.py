@@ -61,10 +61,11 @@ def input_format_is_ok(sen):
 def process_input(tags, syn):
     if type(tags) == list and type(syn) == list:
         for i in range(len(tags)):
-            if tags[i].__getitem__(1) == "NN":
+            if tags[i][1] == "NN":
                 for j in range(len(syn)):
-                    if tags[i].__getitem__(0) == syn[j]:
-                        pass #do something
+                    for k in range(len(syn[j])):
+                        if tags[i][0] == syn[j][k]:
+                            pass #do something
 
 l_sent = ["I would like a babysitter this friday night!",
           "Clear my pool now",
@@ -112,7 +113,7 @@ if __name__ == "__main__":
     # ENTITY RECOGNITION
     entity = ne_chunk(tags, binary=True)
 
-    process_input(tags, None)
+    process_input(tags, synonym)
     
     print "\nSENTENCE\n", sentence
     print "\nTOKENS\n", words
