@@ -41,8 +41,8 @@ def get_synonyms(word):
                 synonyms.append(l.name().encode("ascii"))
     return synonyms
 
-"""********* Fonction qui s'assure que la phrase recue est valide ***********"""
-def input_is_valid(sen):
+"""*** Fonction qui s'assure que le format de la phrase recue est valide ****"""
+def input_format_is_ok(sen):
     valid = False
     length = len(sen)
     if type(sen) == str and length >= MIN_LENGTH[0]:
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
 
-    if not input_is_valid(sentence): sys.exit(1)
+    if not input_format_is_ok(sentence): sys.exit(1)
 
     # TOKENISATION
     words = tokenize.word_tokenize(sentence)
