@@ -64,15 +64,15 @@ l_sent = ["I would like a babysitter this friday night!",
           "shovel my driveway"]
 
 # Cette liste contient des mots clés extraites des phrases ci-dessous  
-keys_words = ["babysitter", "pool", "car", "driveway"]
+keyword = ["babysitter", "pool", "car", "driveway"]
 
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
     # Creation d'une liste avec les synonymes de chaque type
-    synonyms = []
-    for w in range(len(keys_words)):
-        synonyms.append(get_synonyms(keys_words[w]))
+    synonym = []
+    for w in range(len(keyword)):
+        synonym.append(get_synonyms(keyword[w]))
 
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     print "\nFILTERED nTOKENS\n", filtered_words
     print "\nLEMMATIZE nTOKENS\n", lem_words
     print "\nTAGGING\n", tags
-    print "\nSYNONYMS OF %s:\n" %("BABYSITTER"), get_synonyms("babysitter")
+    print "\nSYNONYMS OF %s:\n" %(keyword[0]), synonym[0]
 
     #chunk.draw()
     #entity.draw()
