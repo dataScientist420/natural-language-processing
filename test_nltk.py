@@ -31,6 +31,7 @@ import sys
 
 MIN_LENGTH = (3, None)
 
+"""***** Fonction qui retourne une liste de synonymes pour le mot recu ******"""
 def get_synonyms(word):
     synonyms = []
     if type(word) == str:
@@ -40,6 +41,7 @@ def get_synonyms(word):
                 synonyms.append(l.name().encode("ascii"))
     return synonyms
 
+"""********* Fonction qui s'assure que la phrase recue est valide ***********"""
 def input_is_valid(sen):
     valid = False
     length = len(sen)
@@ -61,7 +63,18 @@ l_sent = ["I would like a babysitter this friday night!",
           "wash my car",
           "shovel my driveway"]
 
+# Cette liste contient un mot clé correspondant a chaque type 
+types = ["babysitter", "pool", "car", "driveway"]
+
+
+"""******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
+    # Creation d'une liste avec les synonymes de chaque type
+    synonyms = []
+    for w in range(len(types)):
+        synonyms.append(get_synonyms(types[w]))
+
+    
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
 
