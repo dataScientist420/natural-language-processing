@@ -31,7 +31,7 @@ import sys
 
 MIN_LENGTH = (3, None)
 
-def getsynonymes(word):
+def get_synonyms(word):
     synonyms = []
     if type(word) == str:
         synsets = wordnet.synsets(word)
@@ -40,7 +40,7 @@ def getsynonymes(word):
                 synonyms.append(l.name().encode("ascii"))
     return synonyms
 
-def inputisvalid(sen):
+def input_is_valid(sen):
     valid = False
     length = len(sen)
     if type(sen) == str and length >= MIN_LENGTH[0]:
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
 
-    if not inputisvalid(sentence): sys.exit(1)
+    if not input_is_valid(sentence): sys.exit(1)
 
     # TOKENISATION
     words = tokenize.word_tokenize(sentence)
@@ -96,7 +96,7 @@ if __name__ == "__main__":
     print "\nFILTERED nTOKENS\n", filtered_words
     print "\nLEMMATIZE nTOKENS\n", lem_words
     print "\nTAGGING\n", tags
-    print "\nSYNS %s:\n" %("BABYSITTER"), getsynonymes("babysitter")
+    print "\nSYNONYMS OF %s:\n" %("BABYSITTER"), get_synonyms("babysitter")
 
     #chunk.draw()
     #entity.draw()
