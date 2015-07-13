@@ -64,17 +64,16 @@ l_sent = ["I would like a babysitter this friday night!",
           "shovel my driveway"]
 
 # Cette liste contient un mot clé correspondant a chaque type 
-types = ["babysitter", "pool", "car", "driveway"]
+keys_words = ["babysitter", "pool", "car", "driveway"]
 
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
     # Creation d'une liste avec les synonymes de chaque type
     synonyms = []
-    for w in range(len(types)):
-        synonyms.append(get_synonyms(types[w]))
+    for w in range(len(keys_words)):
+        synonyms.append(get_synonyms(keys_words[w]))
 
-    
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
 
