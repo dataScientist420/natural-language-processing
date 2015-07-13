@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 """***************************************************************************** 
 This program is free software: you can redistribute it and/or modify
@@ -23,17 +24,50 @@ from nltk.corpus import stopwords
 from nltk import pos_tag
 from nltk import RegexpParser
 from nltk import ne_chunk
+from nltk import WordNetLemmatizer
 from random import randrange
+from nltk.corpus import wordnet
+import sys
+
+MIN_LENGTH = (3, None)
+
+
+def getsynonymes(word):
+    synonyms = []
+    if type(word) == str:
+        synsets = wordnet.synsets(word)
+        for s in synsets:
+            for l in s.lemmas():
+                synonyms.append(l.name().encode("ascii"))
+    return synonyms
+
+def inputisvalid(sen):
+    valid = False
+    length = len(sen)
+    
+    if type(sen) == str and length >= MIN_LENGTH[0]:
+        end_symbols = 0
+        valid = True
+        for i in range(length):         
+            #si phrase détectée, on s'assure qu'il n'y en a qu'une seule
+            if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
+                end_symbols += 1
+                if end_symbols == 1 and i+1 < length:
+                    valid = sen[i+1] is None
+                elif end_symbols > 1: break
+    return valid
 
 l_sent = ["I would like a babysitter this friday night!",
           "Clear my pool now",
-          "babysitter 6 to 8",
+          "babysitter six to seven",
           "wash my car",
           "shovel my driveway"]
 
 if __name__ == "__main__":
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
+
+    if not inputisvalid(sentence): sys.exit(1)
 
     # TOKENISATION
     words = tokenize.word_tokenize(sentence)
@@ -42,19 +76,29 @@ if __name__ == "__main__":
     stop_words = set(stopwords.words("english")) 
     filtered_words = [w for w in words if w not in stop_words]
 
+    # LEMATIZING
+    lem = WordNetLemmatizer()
+    size = len(filtered_words)
+    lem_words = [None] * size
+    for w in range(size):
+        lem_words[w] = lem.lemmatize(filtered_words[w])
+    
     # SPEECH TAGGING 
     tags = pos_tag(filtered_words)
 
     # CHUNKING
     regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
     chunk = regex.parse(tags)
-    chunk.draw()
 
     # ENTITY RECOGNITION
-    entity = ne_chunk(tags)
-    entity.draw()
+    entity = ne_chunk(tags, binary=True)
     
     print "\nSENTENCE\n", sentence
     print "\nTOKENS\n", words
-    print "\nFILTERED nTOKENS\n", filtered_words  
+    print "\nFILTERED nTOKENS\n", filtered_words
+    print "\nLEMMATIZE nTOKENS\n", lem_words
     print "\nTAGGING\n", tags
+    print "\nSYNS %s:\n" %("BABYSITTER"), getsynonymes("babysitter")
+
+    #chunk.draw()
+    #entity.draw()
