@@ -63,7 +63,7 @@ l_sent = ["I would like a babysitter this friday night!",
           "wash my car",
           "shovel my driveway"]
 
-# Cette liste contient un mot clé correspondant a chaque type 
+# Cette liste contient un mot clé correspondant a chaque mot clé 
 keys_words = ["babysitter", "pool", "car", "driveway"]
 
 
