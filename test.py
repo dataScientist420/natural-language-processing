@@ -92,18 +92,17 @@ def process_input(tags, syn):
                             elif j == USER_FORM[1]: return keyword[1]
                             elif j == USER_FORM[2]: return keyword[2]
                             elif j == USER_FORM[3]: return keyword[3]
-                            break
+
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
     l_sent = [
-              "I would like a baby-sitter this friday night!",
+              "I would like a babysitter this friday night!",
               "Clear my pool now",
               "babysitter 6 to 7",
               "wash my car",
               "shovel my driveway"]
     
-
     # GENERATE THE SYNONYMS LIST
     synonym = []
     for w in range(len(keyword)):
