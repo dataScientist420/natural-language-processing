@@ -111,6 +111,7 @@ if __name__ == "__main__":
     index = randrange(0, len(l_sent))
     sentence = l_sent[index]
 
+    # VALIDATE THE FORMAT
     if not input_format_is_ok(sentence): sys.exit(1)
 
     # TOKENISATION
@@ -123,10 +124,6 @@ if __name__ == "__main__":
     # SPEECH TAGGING 
     tags = pos_tag(filtered_words)
 
-    # CHUNKING
-    #regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
-    #chunk = regex.parse(tags)
-
     # ENTITY RECOGNITION
     entity = ne_chunk(tags)
     
@@ -138,6 +135,12 @@ if __name__ == "__main__":
     print("\nUSERFORM:")
     
     process_input(tags, synonym)
+    
 
-    #chunk.draw()
-    #entity.draw()
+    """
+    #CHUNKING
+    regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
+    chunk = regex.parse(tags)
+    chunk.draw()
+    entity.draw()
+    """
