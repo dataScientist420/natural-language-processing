@@ -19,6 +19,8 @@ Author: Victor Neville
 Date: 07-06-2015
 *****************************************************************************"""
 
+import sys
+import nltk
 from nltk import tokenize
 from nltk.corpus import stopwords
 from nltk import pos_tag
@@ -27,19 +29,31 @@ from nltk import ne_chunk
 from nltk import WordNetLemmatizer
 from random import randrange
 from nltk.corpus import wordnet
-import sys
 
+
+"""*************************** CONSTANTS (tuples) ***************************"""
 MIN_LENGTH = (3, None)
+THRESHOLD = (0.5, None)
+USER_FORM = (0, 1, 2, 3)
 
 """***** Fonction qui retourne une liste de synonymes pour le mot recu ******"""
 def get_synonyms(word):
     synonyms = []
     if type(word) == str:
-        synsets = wordnet.synsets(word)
-        for s in synsets:
+        for s in wordnet.synsets(word):
             for l in s.lemmas():
-                synonyms.append(l.name().encode("ascii"))
+                synonyms.append(l.name())
     return synonyms
+
+"""******* Fonction qui verifie le seuil de ressemblance entre 2 mots *******"""
+def threshold_is_valid(w1, w2):
+    valid = False
+    if type(w1) == type(w2) == str:
+        syn1 = wordnet.synset(w1+".n.01")
+        syn2 = wordnet.synset(w2+".n.01")
+        valid = syn1.wup_similarity(syn1) >= THRESHOLD[0]
+    return valid
+
 
 """*** Fonction qui s'assure que le format de la phrase recue est valide ****"""
 def input_format_is_ok(sen):
@@ -59,17 +73,24 @@ def input_format_is_ok(sen):
 
 """***************** Fonction qui process l'input (NON FINI) ****************"""
 def process_input(tags, syn):
-    if type(tags) == list and type(syn) == list:
+    if type(tags) == type(syn) == list:
         for i in range(len(tags)):
             if tags[i][1] == "NN":
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
-                        if tags[i][0] == syn[j][k]:
-                            pass #do something
+                        if threshold_is_valid(tags[i][0], syn[j][k]):
+                            if j == USER_FORM[0]:
+                                pass
+                            elif j == USER_FORM[1]:
+                                pass
+                            elif j == USER_FORM[2]:
+                                pass
+                            else:
+                                pass
 
 l_sent = ["I would like a babysitter this friday night!",
           "Clear my pool now",
-          "babysitter six to seven",
+          "babysitter 6 to 7",
           "wash my car",
           "shovel my driveway"]
 
@@ -79,10 +100,16 @@ keyword = ["babysitter", "pool", "car", "driveway"]
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
+    
     # Creation d'une liste avec les synonymes de chaque mot-clé
     synonym = []
     for w in range(len(keyword)):
         synonym.append(get_synonyms(keyword[w]))
+
+    # READING THE TEXT FILE
+    #fo = open("data.txt", "r+")
+    #sentence = fo.read()
+    #fo.close()
 
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
@@ -96,7 +123,7 @@ if __name__ == "__main__":
     stop_words = set(stopwords.words("english")) 
     filtered_words = [w for w in words if w not in stop_words]
 
-    # LEMATIZING
+    # LEMMATIZING
     lem = WordNetLemmatizer()
     size = len(filtered_words)
     lem_words = [None] * size
@@ -115,12 +142,12 @@ if __name__ == "__main__":
 
     process_input(tags, synonym)
     
-    print "\nSENTENCE\n", sentence
-    print "\nTOKENS\n", words
-    print "\nFILTERED nTOKENS\n", filtered_words
-    print "\nLEMMATIZE nTOKENS\n", lem_words
-    print "\nTAGGING\n", tags
-    print "\nSYNONYMS OF %s:\n" %(keyword[0]), synonym[0]
+    print("\nSENTENCE\n", sentence)
+    print("\nTOKENS\n", words)
+    print("\nFILTERED TOKENS\n", filtered_words)
+    print("\nLEMMATIZE nTOKENS\n", lem_words)
+    print("\nTAGGING\n", tags)
+    print("\nSYNONYMS OF %s:\n" %(keyword[0]), synonym[0])
 
     #chunk.draw()
     #entity.draw()
