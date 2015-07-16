@@ -35,6 +35,7 @@ MIN_LENGTH = (3, None)
 THRESHOLD = (0.7, None)
 USER_FORM = (0, 1, 2, 3)
 
+
 """***** Fonction qui retourne une liste de synonymes pour le mot recu ******"""
 def get_synonyms(word):
     synonyms = []
@@ -44,7 +45,8 @@ def get_synonyms(word):
                 synonyms.append(l.name())
     return synonyms
 
-"""******* Fonction qui verifie le seuil de ressemblance entre 2 mots *******"""
+
+"""******** Fonction qui valide le seuil de ressemblance entre 2 mots *******"""
 def threshold_is_valid(w1, w2):
     if type(w1) == type(w2) == str:
         syn1 = wordnet.synset(w1+".n.01")
@@ -68,6 +70,7 @@ def input_format_is_ok(sen):
                     valid = sen[i+1] is None
                 elif end_symbols > 1: break
     return valid
+
 
 """***************** Fonction qui process l'input (NON FINI) ****************"""
 def process_input(tags, syn):
@@ -99,16 +102,10 @@ keyword = ["babysitter", "pool", "car", "driveway"]
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
-    
     # Creation d'une liste avec les synonymes de chaque mot-clé
     synonym = []
     for w in range(len(keyword)):
         synonym.append(get_synonyms(keyword[w]))
-
-    # READING THE TEXT FILE
-    #fo = open("data.txt", "r+")
-    #sentence = fo.read()
-    #fo.close()
 
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
@@ -121,31 +118,24 @@ if __name__ == "__main__":
     # FILTERING TOKENS 
     stop_words = set(stopwords.words("english")) 
     filtered_words = [w for w in words if w not in stop_words]
-
-    # LEMMATIZING
-    lem = WordNetLemmatizer()
-    size = len(filtered_words)
-    lem_words = [None] * size
-    for w in range(size):
-        lem_words[w] = lem.lemmatize(filtered_words[w])
     
     # SPEECH TAGGING 
     tags = pos_tag(filtered_words)
 
     # CHUNKING
-    regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
-    chunk = regex.parse(tags)
+    #regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
+    #chunk = regex.parse(tags)
 
     # ENTITY RECOGNITION
-    entity = ne_chunk(tags, binary=True)
+    entity = ne_chunk(tags)
     
     print("\nSENTENCE\n", sentence)
     print("\nTOKENS\n", words)
     print("\nFILTERED TOKENS\n", filtered_words)
-    print("\nLEMMATIZE nTOKENS\n", lem_words)
     print("\nTAGGING\n", tags)
     print("\nSYNONYMS OF %s:\n" %(keyword[0]), synonym[0])
     print("\nUSERFORM:")
+    
     process_input(tags, synonym)
 
     #chunk.draw()
