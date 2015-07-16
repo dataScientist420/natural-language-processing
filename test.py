@@ -20,7 +20,6 @@ Date: 07-06-2015
 *****************************************************************************"""
 
 import sys
-import nltk
 from nltk import tokenize
 from nltk.corpus import stopwords
 from nltk import pos_tag
@@ -33,7 +32,7 @@ from nltk.corpus import wordnet
 
 """*************************** CONSTANTS (tuples) ***************************"""
 MIN_LENGTH = (3, None)
-THRESHOLD = (0.5, None)
+THRESHOLD = (0.9, None)
 USER_FORM = (0, 1, 2, 3)
 
 """***** Fonction qui retourne une liste de synonymes pour le mot recu ******"""
@@ -47,12 +46,11 @@ def get_synonyms(word):
 
 """******* Fonction qui verifie le seuil de ressemblance entre 2 mots *******"""
 def threshold_is_valid(w1, w2):
-    valid = False
     if type(w1) == type(w2) == str:
         syn1 = wordnet.synset(w1+".n.01")
         syn2 = wordnet.synset(w2+".n.01")
-        valid = syn1.wup_similarity(syn1) >= THRESHOLD[0]
-    return valid
+        return syn1.wup_similarity(syn1) >= THRESHOLD[0]
+    return False
 
 
 """*** Fonction qui s'assure que le format de la phrase recue est valide ****"""
@@ -78,15 +76,16 @@ def process_input(tags, syn):
             if tags[i][1] == "NN":
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
-                        if threshold_is_valid(tags[i][0], syn[j][k]):
+                        if tags[i][0] == syn[j][k]:
+                            print("\nUSERFORM:")
                             if j == USER_FORM[0]:
-                                pass
+                                print("Babysitter(no hours)")
                             elif j == USER_FORM[1]:
-                                pass
+                                print("Pool(no hours)")
                             elif j == USER_FORM[2]:
-                                pass
+                                print("Car(no hours)")
                             else:
-                                pass
+                                print("Driveway(no hours)")
 
 l_sent = ["I would like a babysitter this friday night!",
           "Clear my pool now",
@@ -139,8 +138,6 @@ if __name__ == "__main__":
 
     # ENTITY RECOGNITION
     entity = ne_chunk(tags, binary=True)
-
-    process_input(tags, synonym)
     
     print("\nSENTENCE\n", sentence)
     print("\nTOKENS\n", words)
@@ -148,6 +145,8 @@ if __name__ == "__main__":
     print("\nLEMMATIZE nTOKENS\n", lem_words)
     print("\nTAGGING\n", tags)
     print("\nSYNONYMS OF %s:\n" %(keyword[0]), synonym[0])
+
+    process_input(tags, synonym)
 
     #chunk.draw()
     #entity.draw()
