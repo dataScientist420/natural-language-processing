@@ -92,7 +92,7 @@ def process_input(tags, syn):
                             if   j == USER_FORM[0]: user_form = keyword[0]
                             elif j == USER_FORM[1]: user_form = keyword[1]
                             elif j == USER_FORM[2]: user_form = keyword[2]
-                            elif j == USER_FORM[3]: user_form = keyword[2]
+                            elif j == USER_FORM[3]: user_form = keyword[3]
                             if contains_digit(tags): pass #TODO    
     return user_form
 
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     l_sent = [
               "I would like a babysitter this friday night!",
               "Clear my pool now",
-              "babysitter 6 to 7",
+              "sitter 6 to 7",
               "wash my car",
               "shovel my driveway"]
     
