@@ -90,18 +90,19 @@ def process_input(tags, syn):
                                 print("Driveway(no hours)")
                             break
 
-l_sent = ["I would like a babysitter this friday night!",
-          "Clear my pool now",
-          "babysitter 6 to 7",
-          "wash my car",
-          "shovel my driveway"]
-
-# Cette liste contient des mots clés extraits des phrases ci-dessous  
-keyword = ["babysitter", "pool", "car", "driveway"]
-
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
+    
+    l_sent = ["I would like a babysitter this friday night!",
+              "Clear my pool now",
+              "babysitter 6 to 7",
+              "wash my car",
+              "shovel my driveway"]
+
+    # Cette liste contient des mots clés extraits des phrases ci-dessous  
+    keyword = ["babysitter", "pool", "car", "driveway"]
+
     # Creation d'une liste avec les synonymes de chaque mot-clé
     synonym = []
     for w in range(len(keyword)):
@@ -132,6 +133,7 @@ if __name__ == "__main__":
     print("\nSENTENCE\n", sentence)
     print("\nTOKENS\n", words)
     print("\nFILTERED TOKENS\n", filtered_words)
+    
     print("\nTAGGING\n", tags)
     print("\nSYNONYMS OF %s:\n" %(keyword[0]), synonym[0])
     print("\nUSERFORM:")
