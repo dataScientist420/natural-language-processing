@@ -89,15 +89,14 @@ def process_input(tags, syn):
                     for k in range(len(syn[j])):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
                             if j == USER_FORM[0]:
-                                print("Babysitter(no hours)")
+                                return "Babysitter"
                             elif j == USER_FORM[1]:
-                                print("Pool(no hours)")
+                                return "Pool"
                             elif j == USER_FORM[2]:
-                                print("Car(no hours)")
+                                return "Car"
                             elif j == USER_FORM[3]:
-                                print("Driveway(no hours)")
+                                return "Driveway"
                             break
-
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
@@ -139,9 +138,7 @@ if __name__ == "__main__":
     print("\nFILTERED TOKENS\n", filtered_words)
     print("\nTAGGING\n", tags)
     print("\nDIGIT FLAG:", contains_digit(tags))
-    print("\nUSERFORM:")
-    
-    process_input(tags, synonym)
+    print("\nUSERFORM:\n", process_input(tags, synonym))
     
     """
     #CHUNKING
