@@ -82,16 +82,19 @@ def contains_digit(tags):
 
 """********************** Process input (NOT FINISHED) **********************"""
 def process_input(tags, syn):
+    user_form = None
     if type(tags) == type(syn) == list:
         for i in range(len(tags)):
             if tags[i][1] == "NN":
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
-                            if   j == USER_FORM[0]: return keyword[0]
-                            elif j == USER_FORM[1]: return keyword[1]
-                            elif j == USER_FORM[2]: return keyword[2]
-                            elif j == USER_FORM[3]: return keyword[3]
+                            if   j == USER_FORM[0]: user_form = keyword[0]
+                            elif j == USER_FORM[1]: user_form = keyword[1]
+                            elif j == USER_FORM[2]: user_form = keyword[2]
+                            elif j == USER_FORM[3]: user_form = keyword[2]
+                            if contains_digit(tags): pass #TODO    
+    return user_form
 
 
 """******************************* ENTRY POINT ******************************"""
