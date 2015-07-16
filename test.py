@@ -35,7 +35,7 @@ THRESHOLD = (0.7, None)
 USER_FORM = (0, 1, 2, 3)
 
 
-"""***** Fonction qui retourne une liste de synonymes pour le mot recu ******"""
+"""**************** Create a list of synonyms for the word arg **************"""
 def get_synonyms(word):
     synonyms = []
     if type(word) == str:
@@ -45,7 +45,7 @@ def get_synonyms(word):
     return synonyms
 
 
-"""******** Fonction qui valide le seuil de ressemblance entre 2 mots *******"""
+"""****************** Validate the threshold between 2 words ****************"""
 def threshold_is_valid(w1, w2):
     if type(w1) == type(w2) == str:
         syn1 = wordnet.synset(w1+".n.01")
@@ -54,7 +54,7 @@ def threshold_is_valid(w1, w2):
     return False
 
 
-"""*** Fonction qui s'assure que le format de la phrase recue est valide ****"""
+"""********************** Validate the sentence format **********************"""
 def input_format_is_ok(sen):
     valid = False
     length = len(sen)
@@ -71,7 +71,7 @@ def input_format_is_ok(sen):
     return valid
 
 
-"""***************** Fonction qui process l'input (NON FINI) ****************"""
+"""**************** Fonction the process input (NOT FINISHED) ***************"""
 def process_input(tags, syn):
     if type(tags) == type(syn) == list:
         for i in range(len(tags)):
@@ -93,23 +93,21 @@ def process_input(tags, syn):
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
     l_sent = [
-              "I would like a babysitter this friday night!",
+              "I would like a baby-sitter this friday night!",
               "Clear my pool now",
               "babysitter 6 to 7",
               "wash my car",
               "shovel my driveway"]
 
-    # Cette liste contient des mots clés extraits des phrases ci-dessous  
     keyword = ["babysitter", "pool", "car", "driveway"]
 
-    # Creation d'une liste avec les synonymes de chaque mot-clé
+    # GENERATE THE SYNONYMS LIST
     synonym = []
     for w in range(len(keyword)):
         synonym.append(get_synonyms(keyword[w]))
 
     # RANDOM SENTENCE
-    index = randrange(0, len(l_sent))
-    sentence = l_sent[index]
+    sentence = l_sent[randrange(0, len(l_sent))]
 
     # VALIDATE THE FORMAT
     if not input_format_is_ok(sentence): sys.exit(1)
@@ -131,7 +129,6 @@ if __name__ == "__main__":
     print("\nTOKENS\n", words)
     print("\nFILTERED TOKENS\n", filtered_words)
     print("\nTAGGING\n", tags)
-    print("\nSYNONYMS OF %s:\n" %(keyword[index]), synonym[index])
     print("\nUSERFORM:")
     
     process_input(tags, synonym)
