@@ -77,15 +77,15 @@ def process_input(tags, syn):
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
                         if tags[i][0] == syn[j][k]:
-                            print("\nUSERFORM:")
                             if j == USER_FORM[0]:
                                 print("Babysitter(no hours)")
                             elif j == USER_FORM[1]:
                                 print("Pool(no hours)")
                             elif j == USER_FORM[2]:
                                 print("Car(no hours)")
-                            else:
+                            elif j == USER_FORM[3]:
                                 print("Driveway(no hours)")
+                            break
 
 l_sent = ["I would like a babysitter this friday night!",
           "Clear my pool now",
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     print("\nLEMMATIZE nTOKENS\n", lem_words)
     print("\nTAGGING\n", tags)
     print("\nSYNONYMS OF %s:\n" %(keyword[0]), synonym[0])
-
+    print("\nUSERFORM:")
     process_input(tags, synonym)
 
     #chunk.draw()
