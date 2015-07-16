@@ -29,10 +29,10 @@ from random import randrange
 from nltk.corpus import wordnet 
 
 
-"""*************************** CONSTANTS (tuples) ***************************"""
 MIN_LENGTH = (3, None)
 THRESHOLD = (0.7, None)
 USER_FORM = (0, 1, 2, 3)
+keyword = ["babysitter", "pool", "car", "driveway"]
 
 
 """**************** Create a list of synonyms for the word arg **************"""
@@ -88,14 +88,10 @@ def process_input(tags, syn):
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
-                            if j == USER_FORM[0]:
-                                return "Babysitter"
-                            elif j == USER_FORM[1]:
-                                return "Pool"
-                            elif j == USER_FORM[2]:
-                                return "Car"
-                            elif j == USER_FORM[3]:
-                                return "Driveway"
+                            if   j == USER_FORM[0]: return keyword[0]
+                            elif j == USER_FORM[1]: return keyword[1]
+                            elif j == USER_FORM[2]: return keyword[2]
+                            elif j == USER_FORM[3]: return keyword[3]
                             break
 
 """******************************* ENTRY POINT ******************************"""
@@ -106,8 +102,7 @@ if __name__ == "__main__":
               "babysitter 6 to 7",
               "wash my car",
               "shovel my driveway"]
-
-    keyword = ["babysitter", "pool", "car", "driveway"]
+    
 
     # GENERATE THE SYNONYMS LIST
     synonym = []
