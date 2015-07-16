@@ -71,7 +71,7 @@ def input_format_is_ok(sen):
     return valid
 
 
-"""**************** Fonction the process input (NOT FINISHED) ***************"""
+"""********************** Process input (NOT FINISHED) **********************"""
 def process_input(tags, syn):
     if type(tags) == type(syn) == list:
         for i in range(len(tags)):
@@ -133,7 +133,6 @@ if __name__ == "__main__":
     
     process_input(tags, synonym)
     
-
     """
     #CHUNKING
     regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
