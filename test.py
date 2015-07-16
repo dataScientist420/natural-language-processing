@@ -71,6 +71,15 @@ def input_format_is_ok(sen):
     return valid
 
 
+"""****************** Validate is sentence contains digits ******************"""
+def contains_digit(tags):
+    if type(tags) == list:
+        for i in range(len(tags)):
+            if tags[i][1] == "CD" and tags[i][0].isdigit():
+                return True
+    return False
+
+
 """********************** Process input (NOT FINISHED) **********************"""
 def process_input(tags, syn):
     if type(tags) == type(syn) == list:
@@ -129,6 +138,7 @@ if __name__ == "__main__":
     print("\nTOKENS\n", words)
     print("\nFILTERED TOKENS\n", filtered_words)
     print("\nTAGGING\n", tags)
+    print("\nDIGIT FLAG:", contains_digit(tags))
     print("\nUSERFORM:")
     
     process_input(tags, synonym)
