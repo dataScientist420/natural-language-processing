@@ -32,7 +32,7 @@ from nltk.corpus import wordnet
 
 """*************************** CONSTANTS (tuples) ***************************"""
 MIN_LENGTH = (3, None)
-THRESHOLD = (0.9, None)
+THRESHOLD = (0.7, None)
 USER_FORM = (0, 1, 2, 3)
 
 """***** Fonction qui retourne une liste de synonymes pour le mot recu ******"""
@@ -49,7 +49,7 @@ def threshold_is_valid(w1, w2):
     if type(w1) == type(w2) == str:
         syn1 = wordnet.synset(w1+".n.01")
         syn2 = wordnet.synset(w2+".n.01")
-        return syn1.wup_similarity(syn1) >= THRESHOLD[0]
+        return syn1.wup_similarity(syn2) >= THRESHOLD[0]
     return False
 
 
@@ -76,7 +76,7 @@ def process_input(tags, syn):
             if tags[i][1] == "NN":
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
-                        if tags[i][0] == syn[j][k]:
+                        if threshold_is_valid(tags[i][0], syn[j][k]):
                             if j == USER_FORM[0]:
                                 print("Babysitter(no hours)")
                             elif j == USER_FORM[1]:
