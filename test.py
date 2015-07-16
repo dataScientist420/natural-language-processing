@@ -29,7 +29,6 @@ from nltk import WordNetLemmatizer
 from random import randrange
 from nltk.corpus import wordnet
 
-
 """*************************** CONSTANTS (tuples) ***************************"""
 MIN_LENGTH = (3, None)
 THRESHOLD = (0.7, None)
@@ -45,7 +44,6 @@ def get_synonyms(word):
                 synonyms.append(l.name())
     return synonyms
 
-
 """******** Fonction qui valide le seuil de ressemblance entre 2 mots *******"""
 def threshold_is_valid(w1, w2):
     if type(w1) == type(w2) == str:
@@ -53,7 +51,6 @@ def threshold_is_valid(w1, w2):
         syn2 = wordnet.synset(w2+".n.01")
         return syn1.wup_similarity(syn2) >= THRESHOLD[0]
     return False
-
 
 """*** Fonction qui s'assure que le format de la phrase recue est valide ****"""
 def input_format_is_ok(sen):
@@ -71,7 +68,6 @@ def input_format_is_ok(sen):
                 elif end_symbols > 1: break
     return valid
 
-
 """***************** Fonction qui process l'input (NON FINI) ****************"""
 def process_input(tags, syn):
     if type(tags) == type(syn) == list:
@@ -88,6 +84,8 @@ def process_input(tags, syn):
                                 print("Car(no hours)")
                             elif j == USER_FORM[3]:
                                 print("Driveway(no hours)")
+                            else:
+                                print("No user userForm has been found!")
                             break
 
 
