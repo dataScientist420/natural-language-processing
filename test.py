@@ -80,8 +80,8 @@ def contains_digit(tags):
     return False
 
 
-"""********************** Process input (NOT FINISHED) **********************"""
-def process_input(tags, syn):
+"""******************* Recognition process (NOT FINISHED) *******************"""
+def recognition_process(tags, syn):
     user_form = None
     if type(tags) == type(syn) == list:
         for i in range(len(tags)):
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     entity = ne_chunk(tags)
 
     # RELATION RECOGNITION
-    user_form = process_input(tags, synonym)
+    user_form = recognition_process(tags, synonym)
     
     print("\nSENTENCE\n", sentence)
     print("\nTOKENS\n", words)
