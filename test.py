@@ -93,8 +93,8 @@ def process_input(tags, syn):
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
-    
-    l_sent = ["I would like a babysitter this friday night!",
+    l_sent = [
+              "I would like a babysitter this friday night!",
               "Clear my pool now",
               "babysitter 6 to 7",
               "wash my car",
@@ -133,7 +133,6 @@ if __name__ == "__main__":
     print("\nSENTENCE\n", sentence)
     print("\nTOKENS\n", words)
     print("\nFILTERED TOKENS\n", filtered_words)
-    
     print("\nTAGGING\n", tags)
     print("\nSYNONYMS OF %s:\n" %(keyword[0]), synonym[0])
     print("\nUSERFORM:")
