@@ -110,7 +110,8 @@ if __name__ == "__main__":
         synonym.append(get_synonyms(keyword[w]))
 
     # RANDOM SENTENCE
-    sentence = l_sent[randrange(0, len(l_sent))]
+    index = randrange(0, len(l_sent))
+    sentence = l_sent[index]
 
     if not input_format_is_ok(sentence): sys.exit(1)
 
@@ -135,7 +136,7 @@ if __name__ == "__main__":
     print("\nTOKENS\n", words)
     print("\nFILTERED TOKENS\n", filtered_words)
     print("\nTAGGING\n", tags)
-    print("\nSYNONYMS OF %s:\n" %(keyword[0]), synonym[0])
+    print("\nSYNONYMS OF %s:\n" %(keyword[index]), synonym[index])
     print("\nUSERFORM:")
     
     process_input(tags, synonym)
