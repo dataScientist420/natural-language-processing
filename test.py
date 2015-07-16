@@ -71,7 +71,7 @@ def input_format_is_ok(sen):
     return valid
 
 
-"""****************** Validate is sentence contains digits ******************"""
+"""****************** Validate if sentence contains digits ******************"""
 def contains_digit(tags):
     if type(tags) == list:
         for i in range(len(tags)):
