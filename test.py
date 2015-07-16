@@ -128,14 +128,14 @@ if __name__ == "__main__":
     entity = ne_chunk(tags)
 
     # RELATION RECOGNITION
-    usr_form = process_input(tags, synonym)
+    user_form = process_input(tags, synonym)
     
     print("\nSENTENCE\n", sentence)
     print("\nTOKENS\n", words)
     print("\nFILTERED TOKENS\n", filtered_words)
     print("\nTAGGING\n", tags)
     print("\nDIGIT FLAG:", contains_digit(tags))
-    print("\nUSERFORM:\n", usr_form)
+    print("\nUSERFORM:\n", user_form)
     
     """
     #CHUNKING
