@@ -99,10 +99,9 @@ def recognition_process(tags, syn):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
                             if j < len(keyword):
                                 user_form = keyword[j]
-                                
-                            digits = get_digits(tags)
-                            if len(digits) > 0: pass #TODO
-                            break
+                                digits = get_digits(tags)
+                                if len(digits) > 0: pass #TODO
+                                break
     return user_form
 
 
