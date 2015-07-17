@@ -40,9 +40,14 @@ USER_FORM = ("babysitter", "pool", "car", "driveway")
 """**************************** Read text file ******************************"""
 def read_sen_file():
     l_sent = []
-    with open(SEN_FILE[0]) as f:
-        l_sent = f.readlines()
-        f.close()
+    try:
+        with open(SEN_FILE[0]) as file:
+            l_sent = file.readlines()
+    except IOError as err:
+        print("I/O Error %s" %(err))
+        sys.exit()
+    else:
+        file.close()
     return l_sent
 
 
@@ -107,17 +112,19 @@ def recognition_process(tags, syn):
 if __name__ == "__main__":
     # READ THE SENCENCES FILE
     l_sent = read_sen_file()
-    
-    # GENERATE THE SYNONYMS LIST
-    synonym = []
-    for w in range(len(USER_FORM)):
-        synonym.append(get_synonyms(USER_FORM[w]))
 
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
 
     # VALIDATE THE FORMAT
-    if not input_format_is_ok(sentence): sys.exit(1)
+    if not input_format_is_ok(sentence):
+        print("Input format is not valid!")
+        sys.exit(1)
+
+    # GENERATE THE SYNONYMS LIST
+    synonym = []
+    for w in range(len(USER_FORM)):
+        synonym.append(get_synonyms(USER_FORM[w]))
 
     # TOKENISATION
     words = tokenize.word_tokenize(sentence)
