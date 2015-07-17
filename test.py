@@ -96,8 +96,8 @@ def recognition_process(tags, syn):
                             elif j == USER_FORM[2]: user_form = keyword[2]
                             elif j == USER_FORM[3]: user_form = keyword[3]
                             digits = get_digits(tags)
-                            if len(digits) > 0:
-                                pass #TODO    
+                            if len(digits) > 0: pass #TODO
+                            break
     return user_form
 
 
