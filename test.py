@@ -33,6 +33,13 @@ from nltk.corpus import wordnet
 MIN_LENGTH = (3, None)
 THRESHOLD = (0.7, None)
 USER_FORM = (0, 1, 2, 3)
+
+l_sent = ["I would like a babysitter this friday night!",
+          "Clear my pool now",
+          "sitter 6 to 7",
+          "wash my car",
+          "shovel my driveway"]
+
 keyword = ["babysitter", "pool", "car", "driveway"]
 
 
@@ -103,13 +110,6 @@ def recognition_process(tags, syn):
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
-    l_sent = [
-              "I would like a babysitter this friday night!",
-              "Clear my pool now",
-              "sitter 6 to 7",
-              "wash my car",
-              "shovel my driveway"]
-    
     # GENERATE THE SYNONYMS LIST
     synonym = []
     for w in range(len(keyword)):
