@@ -113,17 +113,12 @@ if __name__ == "__main__":
     # READ THE SENCENCES FILE
     l_sent = read_sen_file()
 
-    # RANDOM SENTENCE
+    # SELECT RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
 
     # VALIDATE THE FORMAT
     if not input_format_is_ok(sentence):
         print("\nINVALID FORMAT:", sentence)
-
-    # GENERATE THE SYNONYMS LIST
-    synonym = []
-    for w in range(len(USER_FORM)):
-        synonym.append(get_synonyms(USER_FORM[w]))
 
     # TOKENISATION
     words = tokenize.word_tokenize(sentence)
@@ -134,6 +129,11 @@ if __name__ == "__main__":
     
     # SPEECH TAGGING 
     tags = pos_tag(filtered_words)
+
+    # GENERATE SYNONYMS LIST
+    synonym = []
+    for w in range(len(USER_FORM)):
+        synonym.append(get_synonyms(USER_FORM[w]))
 
     # RELATION RECOGNITION
     user_form = recognition_process(tags, synonym)
