@@ -90,7 +90,6 @@ def get_digits(tags):
 
 """******************* Recognition process (NOT FINISHED) *******************"""
 def recognition_process(tags, syn):
-    user_form = None
     if type(tags) == type(syn) == list:
         for i in range(len(tags)):
             if tags[i][1] == "NN":
@@ -98,11 +97,7 @@ def recognition_process(tags, syn):
                     for k in range(len(syn[j])):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
                             if j < len(keyword):
-                                user_form = keyword[j]
-                                digits = get_digits(tags)
-                                if len(digits) > 0: pass #TODO
-                                break
-    return user_form
+                                return keyword[j]
 
 
 """******************************* ENTRY POINT ******************************"""
