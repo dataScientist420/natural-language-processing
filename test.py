@@ -31,13 +31,14 @@ from nltk.corpus import wordnet
 
 
 MIN_LENGTH = (3, None)
-THRESHOLD = (0.7, None)
+THRESHOLD = (0.6, None)
 
 l_sent = ["I would like a babysitter this friday night!",
           "Clear my pool now",
           "sitter 6 to 7",
           "wash my car",
-          "shovel my driveway"]
+          "shovel my driveway",
+          "truck water get lost"]
 
 keyword = ["babysitter", "pool", "car", "driveway"]
 
@@ -131,4 +132,4 @@ if __name__ == "__main__":
     print("\nFILTERED TOKENS\n", filtered_words)
     print("\nTAGGING\n", tags)
     print("\nDIGITS", get_digits(tags))
-    print("\nUSERFORM:\n", user_form)
+    print("\nUSERFORM:", user_form)
