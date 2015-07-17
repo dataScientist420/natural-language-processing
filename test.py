@@ -20,7 +20,6 @@ Python version: 3.4.0
 Date: 07-06-2015
 *****************************************************************************"""
 
-import os
 import sys
 from nltk import tokenize
 from nltk.corpus import stopwords
@@ -113,7 +112,7 @@ if __name__ == "__main__":
         # CLEARING THE SCREEN
         print("\n" * 100)
         
-        # READ THE SENCENCES FILE
+        # READ THE SENCENCES FROM FILE
         l_sent = read_sen_file()
 
         # SELECT RANDOM SENTENCE
