@@ -13,7 +13,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-File: test_nltk.py
+File: test.py
 Description: this file is used for testing the nltk module
 Author: Victor Neville
 Python version: 3.4.0
@@ -32,22 +32,17 @@ from nltk.corpus import wordnet
 
 MIN_LENGTH = (3, None)
 THRESHOLD = (0.6, None)
-
-l_sent = ["I would like a babysitter this friday night!",
-          "Clear my pool now",
-          "sitter 6 to 7",
-          "wash my car",
-          "shovel my driveway",
-          "truck water get lost"]
-
-keyword = ["babysitter", "pool", "car", "driveway"]
+SEN_FILE = ("sentences.txt", None)
+USER_FORM = ("babysitter", "pool", "car", "driveway")
 
 
 """**************************** Read text file ******************************"""
-def read_text_file(file_name):
+def read_sen_file():
     l_sent = []
-    if type(file_name) == str:
-        pass
+    
+    with open(SEN_FILE[0]) as f:
+        l_sent = f.readlines()
+        f.close()
     
     return l_sent
 
@@ -106,15 +101,18 @@ def recognition_process(tags, syn):
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
-                            return keyword[j]
+                            return USER_FORM[j]
 
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
+    # READ THE SENCENCES FILE
+    l_sent = read_sen_file()
+    
     # GENERATE THE SYNONYMS LIST
     synonym = []
-    for w in range(len(keyword)):
-        synonym.append(get_synonyms(keyword[w]))
+    for w in range(len(USER_FORM)):
+        synonym.append(get_synonyms(USER_FORM[w]))
 
     # RANDOM SENTENCE
     sentence = l_sent[randrange(0, len(l_sent))]
@@ -135,8 +133,9 @@ if __name__ == "__main__":
     # RELATION RECOGNITION
     user_form = recognition_process(tags, synonym)
     
+    
     print("\nSENTENCE\n", sentence)
-    print("\nTOKENS\n", words)
+    print("TOKENS\n", words)
     print("\nFILTERED TOKENS\n", filtered_words)
     print("\nTAGGING\n", tags)
     print("\nDIGITS", get_digits(tags))
