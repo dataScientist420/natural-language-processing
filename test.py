@@ -71,15 +71,6 @@ def input_format_is_ok(sen):
     return valid
 
 
-"""**************** Validate if the sentence contains digits ****************"""
-def contains_digit(tags):
-    if type(tags) == list:
-        for i in range(len(tags)):
-            if tags[i][1] == "CD" and tags[i][0].isdigit():
-                return True
-    return False
-
-
 """*********************** Get digits from the tags list ********************"""
 def get_digits(tags):
     digits = []
@@ -104,9 +95,9 @@ def recognition_process(tags, syn):
                             elif j == USER_FORM[1]: user_form = keyword[1]
                             elif j == USER_FORM[2]: user_form = keyword[2]
                             elif j == USER_FORM[3]: user_form = keyword[3]
-                            if contains_digit(tags):
-                                digits = get_digits(tags)
-                                #TODO    
+                            digits = get_digits(tags)
+                            if len(digits) > 0:
+                                pass #TODO    
     return user_form
 
 
@@ -150,7 +141,6 @@ if __name__ == "__main__":
     print("\nTOKENS\n", words)
     print("\nFILTERED TOKENS\n", filtered_words)
     print("\nTAGGING\n", tags)
-    print("\nDIGIT FLAG:", contains_digit(tags))
     print("\nDIGITS", get_digits(tags))
     print("\nUSERFORM:\n", user_form)
     
