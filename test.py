@@ -32,7 +32,6 @@ from nltk.corpus import wordnet
 
 MIN_LENGTH = (3, None)
 THRESHOLD = (0.7, None)
-USER_FORM = (0, 1, 2, 3)
 
 l_sent = ["I would like a babysitter this friday night!",
           "Clear my pool now",
@@ -98,10 +97,9 @@ def recognition_process(tags, syn):
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
-                            if   j == USER_FORM[0]: user_form = keyword[0]
-                            elif j == USER_FORM[1]: user_form = keyword[1]
-                            elif j == USER_FORM[2]: user_form = keyword[2]
-                            elif j == USER_FORM[3]: user_form = keyword[3]
+                            if j < len(keyword):
+                                user_form = keyword[j]
+                                
                             digits = get_digits(tags)
                             if len(digits) > 0: pass #TODO
                             break
