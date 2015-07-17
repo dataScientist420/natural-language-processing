@@ -95,7 +95,7 @@ def get_digits(tags):
     return digits
 
 
-"""******************* Recognition process (NOT FINISHED) *******************"""
+"""************************** Recognition process ***************************"""
 def recognition_process(tags, syn):
     if type(tags) == type(syn) == list:
         for i in range(len(tags)):
