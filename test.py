@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 File: test_nltk.py
 Description: this file is used for testing the nltk module
 Author: Victor Neville
+Python version: 3.4.0
 Date: 07-06-2015
 *****************************************************************************"""
 
@@ -62,7 +63,6 @@ def input_format_is_ok(sen):
         end_symbols = 0
         valid = True
         for i in range(length):         
-            #si phrase détectée, on s'assure qu'il n'y en a qu'une seule
             if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
                 end_symbols += 1
                 if end_symbols == 1 and i+1 < length:
@@ -140,14 +140,3 @@ if __name__ == "__main__":
     print("\nTAGGING\n", tags)
     print("\nDIGITS", get_digits(tags))
     print("\nUSERFORM:\n", user_form)
-    
-    """
-    # ENTITY RECOGNITION
-    entity = ne_chunk(tags)
-    
-    #CHUNKING
-    regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
-    chunk = regex.parse(tags)
-    chunk.draw()
-    entity.draw()
-    """
