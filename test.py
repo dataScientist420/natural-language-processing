@@ -30,7 +30,7 @@ from nltk.corpus import wordnet
 
 """****************************** CONSTANTS *********************************"""
 MIN_LENGTH = (3, None)
-THRESHOLD = (0.6, None)
+THRESHOLD = (0.7, None)
 SEN_FILE = ("sentences.txt", None)
 USER_FORM = ("babysitter", "pool", "car", "driveway")
 
