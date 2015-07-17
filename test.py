@@ -24,8 +24,6 @@ import sys
 from nltk import tokenize
 from nltk.corpus import stopwords
 from nltk import pos_tag
-from nltk import RegexpParser
-from nltk import ne_chunk
 from random import randrange
 from nltk.corpus import wordnet 
 
