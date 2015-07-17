@@ -131,9 +131,6 @@ if __name__ == "__main__":
     # SPEECH TAGGING 
     tags = pos_tag(filtered_words)
 
-    # ENTITY RECOGNITION
-    entity = ne_chunk(tags)
-
     # RELATION RECOGNITION
     user_form = recognition_process(tags, synonym)
     
@@ -145,6 +142,9 @@ if __name__ == "__main__":
     print("\nUSERFORM:\n", user_form)
     
     """
+    # ENTITY RECOGNITION
+    entity = ne_chunk(tags)
+    
     #CHUNKING
     regex = RegexpParser("Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}")
     chunk = regex.parse(tags)
