@@ -30,6 +30,7 @@ from random import randrange
 from nltk.corpus import wordnet 
 
 
+"""****************************** CONSTANTS *********************************"""
 MIN_LENGTH = (3, None)
 THRESHOLD = (0.6, None)
 SEN_FILE = ("sentences.txt", None)
@@ -39,11 +40,9 @@ USER_FORM = ("babysitter", "pool", "car", "driveway")
 """**************************** Read text file ******************************"""
 def read_sen_file():
     l_sent = []
-    
     with open(SEN_FILE[0]) as f:
         l_sent = f.readlines()
         f.close()
-    
     return l_sent
 
 
