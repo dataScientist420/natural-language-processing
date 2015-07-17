@@ -43,6 +43,11 @@ l_sent = ["I would like a babysitter this friday night!",
 keyword = ["babysitter", "pool", "car", "driveway"]
 
 
+"""*********** Read file and creates a str with all the sentences ***********"""
+def read_text_file(file_name):
+    pass #TODO
+
+
 """**************** Create a list of synonyms for the word arg **************"""
 def get_synonyms(word):
     synonyms = []
