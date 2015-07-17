@@ -20,6 +20,7 @@ Python version: 3.4.0
 Date: 07-06-2015
 *****************************************************************************"""
 
+import os
 import sys
 from nltk import tokenize
 from nltk.corpus import stopwords
@@ -79,7 +80,7 @@ def input_format_is_ok(sen):
             if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
                 end_symbols += 1
                 if end_symbols == 1 and i+1 < length:
-                    valid = sen[i+1] is None or sen[i+1] == "\n" 
+                    valid = sen[i+1] == "\n" 
                 elif end_symbols > 1: break
     return valid
 
@@ -108,37 +109,48 @@ def recognition_process(tags, syn):
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
-    # READ THE SENCENCES FILE
-    l_sent = read_sen_file()
+    while True: 
+        # CLEARING THE SCREEN
+        print("\n" * 100)
+        
+        # READ THE SENCENCES FILE
+        l_sent = read_sen_file()
 
-    # SELECT RANDOM SENTENCE
-    sentence = l_sent[randrange(0, len(l_sent))]
+        # SELECT RANDOM SENTENCE
+        sentence = l_sent[randrange(0, len(l_sent))]
 
-    # VALIDATE THE FORMAT
-    if not input_format_is_ok(sentence):
-        print("\nINVALID FORMAT:", sentence)
+        # VALIDATE THE FORMAT
+        if not input_format_is_ok(sentence):
+            print("\nINVALID FORMAT:", sentence)
 
-    # TOKENISATION
-    words = tokenize.word_tokenize(sentence)
+        # TOKENISATION
+        words = tokenize.word_tokenize(sentence)
 
-    # FILTERING TOKENS 
-    stop_words = set(stopwords.words("english")) 
-    filtered_words = [w for w in words if w not in stop_words]
+        # FILTERING TOKENS 
+        stop_words = set(stopwords.words("english")) 
+        filtered_words = [w for w in words if w not in stop_words]
     
-    # SPEECH TAGGING 
-    tags = pos_tag(filtered_words)
+        # SPEECH TAGGING 
+        tags = pos_tag(filtered_words)
 
-    # GENERATE SYNONYMS LIST
-    synonym = []
-    for w in range(len(USER_FORM)):
-        synonym.append(get_synonyms(USER_FORM[w]))
+        # GENERATE SYNONYMS LIST
+        synonym = []
+        for w in range(len(USER_FORM)):
+            synonym.append(get_synonyms(USER_FORM[w]))
 
-    # RELATION RECOGNITION
-    user_form = recognition_process(tags, synonym)
+        # RELATION RECOGNITION
+        user_form = recognition_process(tags, synonym)
     
-    print("\nSENTENCE\n", sentence)
-    print("TOKENS\n", words)
-    print("\nFILTERED TOKENS\n", filtered_words)
-    print("\nTAGGING\n", tags)
-    print("\nDIGITS", get_digits(tags))
-    print("\nUSERFORM:", user_form)
+        print("\nSENTENCE\n", sentence)
+        print("TOKENS\n", words)
+        print("\nFILTERED TOKENS\n", filtered_words)
+        print("\nTAGGING\n", tags)
+        print("\nDIGITS", get_digits(tags))
+        print("\nUSERFORM:", user_form)
+
+        # ENDING THE PROGRAM OR NOT ?
+        if sys.stdin.read(1).lower() == "q":
+            break
+
+        
+        
