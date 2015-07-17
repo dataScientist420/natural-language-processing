@@ -118,8 +118,7 @@ if __name__ == "__main__":
 
     # VALIDATE THE FORMAT
     if not input_format_is_ok(sentence):
-        print("Input format is not valid!")
-        sys.exit(1)
+        print("\nINVALID FORMAT:", sentence)
 
     # GENERATE THE SYNONYMS LIST
     synonym = []
@@ -138,7 +137,6 @@ if __name__ == "__main__":
 
     # RELATION RECOGNITION
     user_form = recognition_process(tags, synonym)
-    
     
     print("\nSENTENCE\n", sentence)
     print("TOKENS\n", words)
