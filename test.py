@@ -45,8 +45,10 @@ keyword = ["babysitter", "pool", "car", "driveway"]
 
 """**************************** Read text file ******************************"""
 def read_text_file(file_name):
-    # TODO
     l_sent = []
+    if type(file_name) == str:
+        pass
+    
     return l_sent
 
 
@@ -104,8 +106,7 @@ def recognition_process(tags, syn):
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
-                            if j < len(keyword):
-                                return keyword[j]
+                            return keyword[j]
 
 
 """******************************* ENTRY POINT ******************************"""
