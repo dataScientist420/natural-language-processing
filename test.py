@@ -89,7 +89,7 @@ def get_digits(tags):
     digits = []
     if type(tags) == list:
         for i in range(len(tags)):
-            if tags[i][1] == "CD" and tags[i][0].isdigit():
+            if tags[i][1] == "NUM" and tags[i][0].isdigit():
                 digits.append(int(tags[i][0]))
     digits.sort()
     return digits
@@ -99,7 +99,7 @@ def get_digits(tags):
 def recognition_process(tags, syn):
     if type(tags) == type(syn) == list:
         for i in range(len(tags)):
-            if tags[i][1] == "NN":
+            if tags[i][1] == "NOUN" or tags[i][1] == "ADJ":
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
@@ -130,7 +130,7 @@ if __name__ == "__main__":
         filtered_words = [w for w in words if w not in stop_words]
     
         # SPEECH TAGGING 
-        tags = pos_tag(filtered_words)
+        tags = pos_tag(filtered_words, tagset="universal")
 
         # GENERATE SYNONYMS LIST
         synonym = []
@@ -150,6 +150,4 @@ if __name__ == "__main__":
         # ENDING THE PROGRAM OR NOT ?
         if sys.stdin.read(1).lower() == "q":
             break
-
-        
         
