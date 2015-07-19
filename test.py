@@ -74,7 +74,7 @@ def threshold_is_valid(w1, w2):
 def input_format_is_ok(sen):
     valid = False
     length = len(sen)
-    if type(sen) == str and length >= MIN_LENGTH[0]:
+    if type(sen) == str and length > MIN_LENGTH[0]:
         end_symbols = 0
         valid = True
         for i in range(length):         
@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
         # VALIDATE THE FORMAT
         if not input_format_is_ok(sentence):
-            print("\nINVALID FORMAT:", sentence)
+            print("INVALID FORMAT")
 
         # TOKENISATION
         words = tokenize.word_tokenize(sentence)
