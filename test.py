@@ -62,9 +62,11 @@ def get_synonyms(word):
 """****************** Validate the threshold between 2 words ****************"""
 def threshold_is_valid(w1, w2):
     if type(w1) == type(w2) == str:
-        syn1 = wordnet.synset(w1+".n.01")
-        syn2 = wordnet.synset(w2+".n.01")
-        return syn1.wup_similarity(syn2) >= THRESHOLD[0]
+        try:
+            syn1 = wordnet.synset(w1+".n.01")
+            syn2 = wordnet.synset(w2+".n.01")
+            return syn1.wup_similarity(syn2) >= THRESHOLD[0]
+        except: return False
     return False
 
 
