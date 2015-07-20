@@ -49,6 +49,24 @@ def read_sen_file():
     return l_sent
 
 
+"""**************** Convert word to num to represent hours  *****************"""
+def wd_hour_to_num_hour(w):
+    if type(w) == str:
+        if   w == "zero":   return 0
+        elif w == "one":    return 1
+        elif w == "two":    return 2
+        elif w == "three":  return 3
+        elif w == "four":   return 4
+        elif w == "five":   return 5
+        elif w == "six":    return 6
+        elif w == "seven":  return 7
+        elif w == "eight":  return 8
+        elif w == "nine":   return 9
+        elif w == "ten":    return 10
+        elif w == "eleven": return 11
+        elif w == "twelve": return 12
+
+
 """**************** Create a list of synonyms for the word arg **************"""
 def get_synonyms(word):
     synonyms = []
@@ -91,8 +109,11 @@ def get_digits(tags):
     digits = []
     if type(tags) == list:
         for i in range(len(tags)):
-            if tags[i][1] == "NUM" and tags[i][0].isdigit():
-                digits.append(int(tags[i][0]))
+            if tags[i][1] == "NUM":
+                if tags[i][0].isdigit():
+                    digits.append(int(tags[i][0]))
+                else:
+                    digits.append(wd_hour_to_num_hour(tags[i][0]))
     digits.sort()
     return digits
 
