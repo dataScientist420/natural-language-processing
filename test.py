@@ -37,7 +37,7 @@ USER_FORM = ("babysitter", "pool", "car", "driveway")
 
 """**************************** Read text file ******************************"""
 def read_sen_file():
-    l_sent = []
+    l_sent = list()
     try:
         with open(SEN_FILE[0]) as file:
             l_sent = file.readlines()
@@ -68,7 +68,7 @@ def wd_hour_to_num_hour(w):
 
 """**************** Create a list of synonyms for the word arg **************"""
 def get_synonyms(word):
-    synonyms = []
+    synonyms = list()
     if type(word) == str:
         for s in wordnet.synsets(word):
             for l in s.lemmas():
@@ -105,7 +105,7 @@ def input_format_is_ok(sen):
 
 """*********************** Get digits from the tags list ********************"""
 def get_digits(tags):
-    digits = []
+    digits = list()
     if type(tags) == list:
         for i in range(len(tags)):
             if tags[i][1] == "NUM":
@@ -154,7 +154,7 @@ if __name__ == "__main__":
         tags = pos_tag(filtered_words, tagset="universal")
 
         # GENERATE SYNONYMS LIST
-        synonym = []
+        synonym = list()
         for w in range(len(USER_FORM)):
             synonym.append(get_synonyms(USER_FORM[w]))
 
