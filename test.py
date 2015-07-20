@@ -52,7 +52,6 @@ def read_sen_file():
 """**************** Convert word to num to represent hours  *****************"""
 def wd_hour_to_num_hour(w):
     if type(w) == str:
-        if   w == "zero":   return 0
         elif w == "one":    return 1
         elif w == "two":    return 2
         elif w == "three":  return 3
