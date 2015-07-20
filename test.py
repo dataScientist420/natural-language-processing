@@ -91,8 +91,7 @@ def threshold_is_valid(w1, w2):
 def input_format_is_ok(sen):
     valid = False; length = len(sen)
     if type(sen) == str and length > MIN_LENGTH[0]:
-        end_symbols = 0
-        valid = True
+        end_symbols = 0; valid = True
         for i in range(length):         
             if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
                 end_symbols += 1
