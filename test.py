@@ -113,7 +113,7 @@ def get_digits(tags):
                 if tags[i][0].isdigit():
                     digits.append(int(tags[i][0]))
                 else:
-                    digits.append(wd_hour_to_num_hour(tags[i][0]))
+                    digits.append(wd_hour_to_num_hour(tags[i][0].lower()))
     digits.sort()
     return digits
 
