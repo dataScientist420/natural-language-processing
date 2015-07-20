@@ -141,8 +141,7 @@ if __name__ == "__main__":
         sentence = l_sent[randrange(0, len(l_sent))]
 
         # VALIDATE THE FORMAT
-        if not input_format_is_ok(sentence):
-            print("INVALID FORMAT")
+        format_flag = input_format_is_ok(sentence)
 
         # TOKENISATION
         words = tokenize.word_tokenize(sentence)
@@ -166,6 +165,7 @@ if __name__ == "__main__":
         print("TOKENS\n", words)
         print("\nFILTERED TOKENS\n", filtered_words)
         print("\nTAGGING\n", tags)
+        print("\nVALID FORMAT:", format_flag)
         print("\nDIGITS", get_digits(tags))
         print("\nUSERFORM:", user_form)
 
