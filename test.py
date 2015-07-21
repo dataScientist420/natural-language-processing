@@ -88,7 +88,7 @@ def threshold_is_valid(w1, w2):
 
 
 """********************** Validate the sentence format **********************"""
-def input_format_is_ok(sen):
+def sen_format_is_valid(sen):
     valid = False; length = len(sen)
     if type(sen) == str and length > MIN_LENGTH[0]:
         end_symbols = 0; valid = True
@@ -109,8 +109,7 @@ def get_digits(tags):
             if tags[i][1] == "NUM":
                 if tags[i][0].isdigit():
                     digits.append(int(tags[i][0]))
-                else:
-                    digits.append(wd_hour_to_num_hour(tags[i][0].lower()))
+                else: digits.append(wd_hour_to_num_hour(tags[i][0].lower()))
     digits.sort()
     return digits
 
@@ -139,7 +138,7 @@ if __name__ == "__main__":
         sentence = l_sent[randrange(0, len(l_sent))]
 
         # VALIDATE THE FORMAT
-        format_flag = input_format_is_ok(sentence)
+        format_flag = sen_format_is_valid(sentence)
 
         # TOKENISATION
         words = tokenize.word_tokenize(sentence)
@@ -158,6 +157,10 @@ if __name__ == "__main__":
 
         # RELATION RECOGNITION
         user_form = recognition_process(tags, synonym)
+
+        # UPDATE THE FORMAT FLAG
+        if format_flag and user_form is None:
+            format_flag = False
     
         print("\nSENTENCE\n", sentence)
         print("TOKENS\n", words)
