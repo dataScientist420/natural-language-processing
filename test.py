@@ -158,7 +158,7 @@ if __name__ == "__main__":
         # RELATION RECOGNITION
         user_form = recognition_process(tags, synonym)
 
-        # UPDATE THE FORMAT FLAG IF NO USER FORM
+        # UPDATE THE FORMAT FLAG 
         if format_flag and user_form is None:
             format_flag = False
     
