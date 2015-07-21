@@ -50,7 +50,7 @@ def read_sen_file():
 
 
 """**************** Convert word to num to represent hours  *****************"""
-def wd_hour_to_num_hour(w):
+def word_to_num(w):
     if type(w) == str:
         if   w == "one":    return 1
         elif w == "two":    return 2
@@ -88,7 +88,7 @@ def threshold_is_valid(w1, w2):
 
 
 """********************** Validate the sentence format **********************"""
-def sen_format_is_valid(sen):
+def format_is_valid(sen):
     valid = False; length = len(sen)
     if type(sen) == str and length > MIN_LENGTH[0]:
         end_symbols = 0; valid = True
@@ -109,7 +109,7 @@ def get_digits(tags):
             if tags[i][1] == "NUM":
                 if tags[i][0].isdigit():
                     digits.append(int(tags[i][0]))
-                else: digits.append(wd_hour_to_num_hour(tags[i][0].lower()))
+                else: digits.append(word_to_num(tags[i][0].lower()))
     digits.sort()
     return digits
 
@@ -138,7 +138,7 @@ if __name__ == "__main__":
         sentence = l_sent[randrange(0, len(l_sent))]
 
         # VALIDATE THE FORMAT
-        format_flag = sen_format_is_valid(sentence)
+        format_flag = format_is_valid(sentence)
 
         # TOKENISATION
         words = tokenize.word_tokenize(sentence)
