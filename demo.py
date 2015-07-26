@@ -20,7 +20,6 @@ Python version: 3.4.0
 Date: 07-06-2015
 *****************************************************************************"""
 
-
 import sys
 import enchant
 from nltk import pos_tag
@@ -90,9 +89,7 @@ def spell_check(words):
         spell_dict = enchant.Dict("en_GB")
         for i in range(len(words)):
             suggestions = spell_dict.suggest(words[i])
-            if spell_dict.check(words[i]):
-                new_list.append(words[i])
-            elif suggestions and dist(words[i], suggestions[0]) <= MAX_DIST[0]:
+            if suggestions and dist(words[i], suggestions[0]) <= MAX_DIST[0]:
                 new_list.append(suggestions[0])
             else: new_list.append(words[i])
     return new_list
