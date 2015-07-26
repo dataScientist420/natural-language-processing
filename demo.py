@@ -34,11 +34,12 @@ from nltk.metrics import edit_distance as dist
 SEN_FILE = ("sentences.txt", None)
 THRESHOLD = (0.7, None)
 MIN_LENGTH = (3, None)
-MAX_DIST = (2, None)
-USER_FORM = ("babysitter",
+MAX_DIST = (1, None)
+USER_FORM = ("car",
              "pool",
-             "car",
-             "driveway",
+             "house", 
+             "snow",
+             "babysitter",
              "appointment")
 
 
@@ -86,10 +87,12 @@ def get_synonyms(word):
 def spell_check(words):
     new_list = []
     if type(words) == list:
-        spell_dict = enchant.Dict("en_GB")
+        spell_dict = enchant.Dict("en_US")
         for i in range(len(words)):
             suggestions = spell_dict.suggest(words[i])
-            if suggestions and dist(words[i], suggestions[0]) <= MAX_DIST[0]:
+            if spell_dict.check(words[i]):
+                new_list.append(words[i])
+            elif suggestions and dist(words[i], suggestions[0]) <= MAX_DIST[0]:
                 new_list.append(suggestions[0])
             else: new_list.append(words[i])
     return new_list
