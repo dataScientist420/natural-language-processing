@@ -20,19 +20,27 @@ Python version: 3.4.0
 Date: 07-06-2015
 *****************************************************************************"""
 
+
 import sys
-from nltk import tokenize
-from nltk.corpus import stopwords
+import enchant
 from nltk import pos_tag
-from random import randrange
-from nltk.corpus import wordnet 
+from nltk import tokenize
+from nltk.corpus import wordnet
+from random import randrange as rand
+from nltk.corpus import stopwords as stop
+from nltk.metrics import edit_distance as dist
 
 
 """****************************** CONSTANTS *********************************"""
-MIN_LENGTH = (3, None)
-THRESHOLD = (0.7, None)
 SEN_FILE = ("sentences.txt", None)
-USER_FORM = ("babysitter", "pool", "car", "driveway")
+THRESHOLD = (0.7, None)
+MIN_LENGTH = (3, None)
+MAX_DIST = (2, None)
+USER_FORM = ("babysitter",
+             "pool",
+             "car",
+             "driveway",
+             "appointment")
 
 
 """**************************** Read text file ******************************"""
@@ -44,26 +52,25 @@ def read_sen_file():
     except IOError as err:
         print("I/O Error %s" %(err))
         sys.exit()
-    else:
-        file.close()
+    else: file.close()
     return l_sent
 
 
 """**************** Convert word to num to represent hours  *****************"""
 def word_to_num(w):
     if type(w) == str:
-        if   w == "one":    return 1
-        elif w == "two":    return 2
-        elif w == "three":  return 3
-        elif w == "four":   return 4
-        elif w == "five":   return 5
-        elif w == "six":    return 6
-        elif w == "seven":  return 7
-        elif w == "eight":  return 8
-        elif w == "nine":   return 9
-        elif w == "ten":    return 10
-        elif w == "eleven": return 11
-        elif w == "twelve": return 12
+        if w == "one":    return 1
+        if w == "two":    return 2
+        if w == "three":  return 3
+        if w == "four":   return 4
+        if w == "five":   return 5
+        if w == "six":    return 6
+        if w == "seven":  return 7
+        if w == "eight":  return 8
+        if w == "nine":   return 9
+        if w == "ten":    return 10
+        if w == "eleven": return 11
+        if w == "twelve": return 12
 
 
 """**************** Create a list of synonyms for the word arg **************"""
@@ -74,6 +81,21 @@ def get_synonyms(word):
             for l in s.lemmas():
                 synonyms.append(l.name())
     return synonyms
+
+
+"""************** Create a list to correct the spelling mistakes ************"""
+def spell_check(words):
+    new_list = []
+    if type(words) == list:
+        spell_dict = enchant.Dict("en_GB")
+        for i in range(len(words)):
+            suggestions = spell_dict.suggest(words[i])
+            if spell_dict.check(words[i]):
+                new_list.append(words[i])
+            elif suggestions and dist(words[i], suggestions[0]) <= MAX_DIST[0]:
+                new_list.append(suggestions[0])
+            else: new_list.append(words[i])
+    return new_list
 
 
 """****************** Validate the threshold between 2 words ****************"""
@@ -118,7 +140,7 @@ def get_digits(tags):
 def recognition_process(tags, syn):
     if type(tags) == type(syn) == list:
         for i in range(len(tags)):
-            if tags[i][1] == "NOUN" or tags[i][1] == "ADJ":
+            if tags[i][1] == "NOUN" or tags[i][1] == "ADJ" or tags[i][1] == "VERB":
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
                         if threshold_is_valid(tags[i][0], syn[j][k]):
@@ -135,7 +157,7 @@ if __name__ == "__main__":
         l_sent = read_sen_file()
 
         # SELECT RANDOM SENTENCE
-        sentence = l_sent[randrange(0, len(l_sent))]
+        sentence = l_sent[rand(0, len(l_sent))]
 
         # VALIDATE THE FORMAT
         format_flag = format_is_valid(sentence)
@@ -143,9 +165,12 @@ if __name__ == "__main__":
         # TOKENISATION
         words = tokenize.word_tokenize(sentence)
 
+        # SPELL CHECKING
+        spell_check_w = spell_check(words)
+
         # FILTERING TOKENS 
-        stop_words = set(stopwords.words("english")) 
-        filtered_words = [w for w in words if w not in stop_words]
+        stop_words = set(stop.words("english")) 
+        filtered_words = [w for w in spell_check_w if w not in stop_words]
     
         # SPEECH TAGGING 
         tags = pos_tag(filtered_words, tagset="universal")
@@ -164,10 +189,11 @@ if __name__ == "__main__":
     
         print("\nSENTENCE\n", sentence)
         print("TOKENS\n", words)
+        print("\nSPELL CHECK\n", spell_check_w)
         print("\nFILTERED TOKENS\n", filtered_words)
         print("\nTAGGING\n", tags)
         print("\nVALID FORMAT:", format_flag)
-        print("\nDIGITS", get_digits(tags))
+        print("\nDIGITS:", get_digits(tags))
         print("\nUSERFORM:", user_form)
 
         # ENDING THE PROGRAM OR NOT ?
