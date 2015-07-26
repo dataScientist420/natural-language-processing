@@ -138,8 +138,11 @@ def get_digits(tags):
 
 
 """************************** Recognition process ***************************"""
-def recognition_process(tags, syn):
-    if type(tags) == type(syn) == list:
+def recognition_process(tags):
+    if type(tags) == list:
+        syn = []
+        for w in range(len(USER_FORM)):
+            syn.append(get_synonyms(USER_FORM[w]))
         for i in range(len(tags)):
             if tags[i][1] == "NOUN" or tags[i][1] == "ADJ" or tags[i][1] == "VERB":
                 for j in range(len(syn)):
@@ -175,14 +178,9 @@ if __name__ == "__main__":
     
         # SPEECH TAGGING 
         tags = pos_tag(filtered_words, tagset="universal")
-
-        # GENERATE SYNONYMS LIST
-        synonym = []
-        for w in range(len(USER_FORM)):
-            synonym.append(get_synonyms(USER_FORM[w]))
-
+        
         # RELATION RECOGNITION
-        user_form = recognition_process(tags, synonym)
+        user_form = recognition_process(tags)
 
         # UPDATE THE FORMAT FLAG IF NECESSARY
         if format_flag and user_form is None:
