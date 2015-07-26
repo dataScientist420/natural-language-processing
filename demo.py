@@ -82,7 +82,7 @@ def get_synonyms(word):
     return synonyms
 
 
-"""************** Create a list to correct the spelling mistakes ************"""
+"""********************* Create a list for spell check **********************"""
 def spell_check(words):
     new_list = []
     if type(words) == list:
