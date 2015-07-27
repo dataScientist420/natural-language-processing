@@ -169,6 +169,7 @@ if __name__ == "__main__":
         # VALIDATE THE FORMAT
         format_flag = format_is_valid(sentence)
 
+        
         # TOKENISATION
         tokens = tokenize.word_tokenize(sentence)
 
@@ -184,10 +185,6 @@ if __name__ == "__main__":
         
         # RELATION RECOGNITION
         user_form = recognition_process(tags)
-
-        # UPDATE THE FORMAT FLAG IF NECESSARY
-        if format_flag and user_form is None:
-            format_flag = False
     
         print("\nSENTENCE\n", sentence)
         print("TOKENS\n", tokens)
