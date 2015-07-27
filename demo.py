@@ -34,15 +34,12 @@ SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
-
-
-"""*************************** OTHER GLOBAL VAR *****************************"""
-USER_FORM = {"car": [],
-             "pool": [],
-             "house": [],
-             "snow": ["shovel"],
-             "babysitter": [],
-             "appointment": ["schedule"]}
+USER_FORM = (("car", []),
+             ("pool", []),
+             ("house", []),
+             ("snow", ["shovel"]),
+             ("babysitter", []),
+             ("appointment", ["schedule", "meeting"]))
 
 
 """**************************** Read text file ******************************"""
@@ -87,9 +84,11 @@ def get_synonyms(token):
 """*********** Verify if token equals to user form extra words  *************"""
 def equal_to_extra_keys(key, token):
     if type(token) == type(key) == str:
-        for w in USER_FORM[key]:
-            if token == w:
-                return True
+        for f in USER_FORM:
+            if f[0] == key:
+                for w in f[1]:
+                    if token == w:
+                        return True
     return False
 
 
@@ -153,7 +152,7 @@ def get_digits(tags):
 """************************** Recognition process ***************************"""
 def recognition_process(tags):
     if type(tags) == list and type(tags[0]) == tuple:
-        form = [k for k in USER_FORM]
+        form = [f[0] for f in USER_FORM]
         syn = [get_synonyms(w) for w in form]
         syn_range = range(len(syn))
         for t in tags:
