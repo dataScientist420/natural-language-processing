@@ -34,12 +34,15 @@ SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
-USER_FORM = ("car",
-             "pool",
-             "house", 
-             "shovel",
-             "babysitter",
-             "appointment")
+
+
+"""************************** OTHER GLOBAL VARIABLES ************************"""
+USER_FORM = {"car": [],
+             "pool": [],
+             "house": [],
+             "snow": ["shovel"],
+             "babysitter": [],
+             "appointment": ["schedule"]}
 
 
 """**************************** Read text file ******************************"""
@@ -81,19 +84,28 @@ def get_synonyms(token):
     return []
 
 
+"""*********** Verify if token equals to user form extra keys  **************"""
+def equal_to_extra_keys(key, token):
+    if type(token) == type(key) == str:
+        for w in USER_FORM[key]:
+            if token == w:
+                return True
+    return False
+
+
 """********************* Create a list for spell check **********************"""
 def spell_check(tokens):
     if type(tokens) == list:
         sd = enchant.Dict("en_US"); length = len(tokens);
-        new_words = [None]*length; tokens_range = range(length)
+        new_tokens = [None]*length; tokens_range = range(length)
         for i in tokens_range:
             suggestions = sd.suggest(tokens[i])
             if sd.check(tokens[i]):
-                new_words[i] = tokens[i]
+                new_tokens[i] = tokens[i]
             elif suggestions and dist(tokens[i], suggestions[0]) <= MAX_DIST[0]:
-                new_words[i] = suggestions[0]
-            else: new_words[i] = tokens[i]
-        return new_words
+                new_tokens[i] = suggestions[0]
+            else: new_tokens[i] = tokens[i]
+        return new_tokens
     return []
 
 
@@ -141,15 +153,17 @@ def get_digits(tags):
 """************************** Recognition process ***************************"""
 def recognition_process(tags):
     if type(tags) == list and type(tags[0]) == tuple:
-        syn = [get_synonyms(w) for w in USER_FORM]
+        form = [k for k in USER_FORM]
+        syn = [get_synonyms(w) for w in form]
         syn_range = range(len(syn))
         for t in tags:
             if t[1] == "NOUN" or t[1] == "ADJ" or t[1] == "VERB":
                 for i in syn_range:
                     for j in range(len(syn[i])):
                         if (threshold_is_valid(t[0], syn[i][j])
-                            or t[0] == syn[i][j] + "s"):
-                            return USER_FORM[i]
+                            or t[0] == syn[i][j] + "s"
+                            or equal_to_extra_keys(form[i], t[0])):
+                            return form[i]
 
 
 """******************************* ENTRY POINT ******************************"""
@@ -175,14 +189,14 @@ if __name__ == "__main__":
             tokens = tokenize.word_tokenize(sentence)
 
             # SPELL CHECKING
-            modified_tokens = spell_check(tokens)
+            modif_tokens = spell_check(tokens)
 
             # FILTERING TOKENS 
             stop_words = set(stop.words("english")) 
-            filtered_tokens = [w for w in modified_tokens if w not in stop_words]
+            filt_tokens = [w.lower() for w in modif_tokens if w not in stop_words]
     
             # SPEECH TAGGING 
-            tags = pos_tag(filtered_tokens, tagset="universal")
+            tags = pos_tag(filt_tokens, tagset="universal")
         
             # RELATION RECOGNITION
             user_form = recognition_process(tags)
@@ -192,8 +206,8 @@ if __name__ == "__main__":
         
         if format_is_valid:
             print("\n\nTOKENS\n", tokens)
-            print("\n\nSPELL CHECK\n", modified_tokens)
-            print("\n\nFILTERED TOKENS\n", filtered_tokens)
+            print("\n\nSPELL CHECK\n", modif_tokens)
+            print("\n\nFILTERED TOKENS\n", filt_tokens)
             print("\n\nTAGGING\n", tags)
             print("\n\nDIGITS:", get_digits(tags))
             print("\n\nUSERFORM:", user_form)
