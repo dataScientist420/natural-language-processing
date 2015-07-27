@@ -110,15 +110,17 @@ def threshold_is_valid(w1, w2):
 
 """********************** Validate the sentence format **********************"""
 def format_is_valid(sen):
-    valid = False; size = len(sen)
-    if type(sen) == str and size > MIN_LENGTH[0]:
-        end_symbols = 0; valid = True
-        for i in range(size):         
-            if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
-                end_symbols += 1
-                if end_symbols == 1 and i+1 < size:
-                    valid = sen[i+1] == "\n" 
-                elif end_symbols > 1: break
+    valid = False 
+    if type(sen) == str:
+        size = len(sen)
+        if size > MIN_LENGTH[0]:
+            end_symbols = 0; valid = True
+            for i in range(size):         
+                if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
+                    end_symbols += 1
+                    if end_symbols == 1 and i+1 < size:
+                        valid = sen[i+1] == "\n" 
+                    elif end_symbols > 1: break
     return valid
 
 
