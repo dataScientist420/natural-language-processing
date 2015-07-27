@@ -56,6 +56,13 @@ def read_sen_file():
     return l_sent
 
 
+"""***** Verify than the 1st str arg is the plural of the 2nd str arg *******"""
+def isplural(w1, w2):
+    if type(w1) == type(w2) == str:
+        return w1 == w2+"s"
+    else: return False
+
+
 """**************** Convert word to num to represent hours  *****************"""
 def word_to_num(w):
     if type(w) == str:
@@ -145,7 +152,7 @@ def recognition_process(tags):
             if tags[i][1] == "NOUN" or tags[i][1] == "ADJ" or tags[i][1] == "VERB":
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
-                        if threshold_is_valid(tags[i][0], syn[j][k]):
+                        if threshold_is_valid(tags[i][0], syn[j][k]) or isplural(tags[i][0], syn[j][k]):
                             return USER_FORM[j]
 
 
