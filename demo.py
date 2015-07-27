@@ -86,8 +86,7 @@ def get_synonyms(token):
 def spell_check(tokens):
     if type(tokens) == list:
         spell_dict = enchant.Dict("en_US")
-        length = len(tokens)
-        new_list = [None]*length
+        length = len(tokens); new_list = [None]*length
         for i in range(length):
             suggestions = spell_dict.suggest(tokens[i])
             if spell_dict.check(tokens[i]):
@@ -196,4 +195,3 @@ if __name__ == "__main__":
         # ENDING THE PROGRAM OR NOT ?
         if sys.stdin.read(1).lower() == "q":
             break
-        
