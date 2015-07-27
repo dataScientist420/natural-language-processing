@@ -78,23 +78,23 @@ def get_synonyms(token):
         for s in wordnet.synsets(token):
             synonyms = [l.name() for l in s.lemmas()]
         return synonyms
-    return []
+    return list()
 
 
 """********************* Create a list for spell check **********************"""
 def spell_check(tokens):
     if type(tokens) == list:
         sd = enchant.Dict("en_US"); length = len(tokens);
-        new_list = [None]*length; tokens_range = range(length)
+        new_words = [None]*length; tokens_range = range(length)
         for i in tokens_range:
             suggestions = sd.suggest(tokens[i])
             if sd.check(tokens[i]):
-                new_list[i] = tokens[i]
+                new_words[i] = tokens[i]
             elif suggestions and dist(tokens[i], suggestions[0]) <= MAX_DIST[0]:
-                new_list[i] = suggestions[0]
-            else: new_list[i] = tokens[i]
-        return new_list
-    return []
+                new_words[i] = suggestions[0]
+            else: new_words[i] = tokens[i]
+        return new_words
+    return list()
 
 
 """****************** Validate the threshold between 2 words ****************"""
