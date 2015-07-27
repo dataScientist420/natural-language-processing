@@ -110,13 +110,13 @@ def threshold_is_valid(w1, w2):
 
 """********************** Validate the sentence format **********************"""
 def format_is_valid(sen):
-    valid = False; length = len(sen)
-    if type(sen) == str and length > MIN_LENGTH[0]:
+    valid = False; size = len(sen)
+    if type(sen) == str and size > MIN_LENGTH[0]:
         end_symbols = 0; valid = True
-        for i in range(length):         
+        for i in range(size):         
             if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
                 end_symbols += 1
-                if end_symbols == 1 and i+1 < length:
+                if end_symbols == 1 and i+1 < size:
                     valid = sen[i+1] == "\n" 
                 elif end_symbols > 1: break
     return valid
@@ -124,9 +124,10 @@ def format_is_valid(sen):
 
 """*********************** Get digits from the tags list ********************"""
 def get_digits(tags):
-    digits = []
+    digits = [] 
     if type(tags) == list and type(tags[0]) == tuple:
-        for i in range(len(tags)):
+        size = len(tags)
+        for i in range(size):
             if tags[i][1] == "NUM":
                 if tags[i][0].isdigit():
                     digits.append(int(tags[i][0]))
@@ -138,8 +139,8 @@ def get_digits(tags):
 """************************** Recognition process ***************************"""
 def recognition_process(tags):
     if type(tags) == list and type(tags[0]) == tuple:
-        syn = [get_synonyms(w) for w in USER_FORM]
-        for i in range(len(tags)):
+        syn = [get_synonyms(w) for w in USER_FORM]; size = len(tags)
+        for i in range(size):
             if tags[i][1] == "NOUN" or tags[i][1] == "ADJ" or tags[i][1] == "VERB":
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
