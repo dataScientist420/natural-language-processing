@@ -84,17 +84,18 @@ def get_synonyms(word):
 
 """********************* Create a list for spell check **********************"""
 def spell_check(words):
-    new_list = []
     if type(words) == list:
         spell_dict = enchant.Dict("en_US")
+        new_list = [None]*len(words)
         for i in range(len(words)):
             suggestions = spell_dict.suggest(words[i])
             if spell_dict.check(words[i]):
-                new_list.append(words[i])
+                new_list[i] = words[i]
             elif suggestions and dist(words[i], suggestions[0]) <= MAX_DIST[0]:
-                new_list.append(suggestions[0])
-            else: new_list.append(words[i])
-    return new_list
+                new_list[i] = suggestions[0]
+            else: new_list[i] = words[i]
+        return new_list
+    else: return []
 
 
 """****************** Validate the threshold between 2 words ****************"""
