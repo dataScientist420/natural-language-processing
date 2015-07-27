@@ -84,8 +84,9 @@ def get_synonyms(token):
 """********************* Create a list for spell check **********************"""
 def spell_check(tokens):
     if type(tokens) == list:
-        sd = enchant.Dict("en_US"); size = len(tokens); new_list = [None]*size
-        for i in range(size):
+        sd = enchant.Dict("en_US"); size = len(tokens);
+        new_list = [None]*size; __range = range(size)
+        for i in __range:
             suggestions = sd.suggest(tokens[i])
             if sd.check(tokens[i]):
                 new_list[i] = tokens[i]
@@ -110,10 +111,10 @@ def threshold_is_valid(w1, w2):
 """********************** Validate the sentence format **********************"""
 def validate_format(sen):
     if type(sen) == str:
-        size = len(sen)
+        size = len(sen); __range = range(size) 
         if size > MIN_LENGTH[0]:
             end_symbols = 0; valid = True
-            for i in range(size):         
+            for i in __range:         
                 if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
                     end_symbols += 1
                     if end_symbols == 1 and i+1 < size:
@@ -124,31 +125,30 @@ def validate_format(sen):
 
 
 """*********************** Get digits from the tags list ********************"""
-def get_digits(tags): 
+def get_digits(tags):
+    digits = []
     if type(tags) == list and type(tags[0]) == tuple:
-        size = len(tags); digits = []
-        for i in range(size):
-            if tags[i][1] == "NUM":
-                if tags[i][0].isdigit():
-                    digits.append(int(tags[i][0]))
+        for t in tags:
+            if t[1] == "NUM":
+                if t[0].isdigit():
+                    digits.append(int(t[0]))
                 else:
-                    digits.append(word_to_num(tags[i][0].lower()))
-        digits.sort()
-        return digits
-    return []
-
+                    digits.append(word_to_num(t[0].lower()))
+    digits.sort()
+    return digits
+    
 
 """************************** Recognition process ***************************"""
 def recognition_process(tags):
     if type(tags) == list and type(tags[0]) == tuple:
-        syn = [get_synonyms(w) for w in USER_FORM]; size = len(tags)
-        for i in range(size):
-            if tags[i][1] == "NOUN" or tags[i][1] == "ADJ" or tags[i][1] == "VERB":
-                for j in range(len(syn)):
-                    for k in range(len(syn[j])):
-                        if (threshold_is_valid(tags[i][0], syn[j][k])
-                            or tags[i][0] == syn[j][k] + "s"):
-                            return USER_FORM[j]
+        syn = [get_synonyms(w) for w in USER_FORM]
+        for t in tags:
+            if t[1] == "NOUN" or t[1] == "ADJ" or t[1] == "VERB":
+                for i in range(len(syn)):
+                    for j in range(len(syn[i])):
+                        if (threshold_is_valid(t[0], syn[i][j])
+                            or t[0] == syn[i][j] + "s"):
+                            return USER_FORM[i]
 
 
 """******************************* ENTRY POINT ******************************"""
