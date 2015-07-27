@@ -30,7 +30,7 @@ from nltk.metrics import edit_distance as dist
 
 
 """****************************** CONSTANTS *********************************"""
-SEN_FILE = ("sentences.txt", None)
+SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
