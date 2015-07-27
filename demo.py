@@ -151,8 +151,7 @@ def get_digits(tags):
 """************************** Recognition process ***************************"""
 def recognition_process(tags):
     if type(tags) == list and type(tags[0]) == tuple:
-        form = [f[0] for f in USER_FORM]
-        syn = [get_synonyms(w) for w in form]
+        syn = [get_synonyms(f[0]) for f in USER_FORM]
         syn_range = [range(len(l)) for l in syn]
         list_range = range(len(syn))
         for t in tags:
@@ -161,8 +160,8 @@ def recognition_process(tags):
                     for j in syn_range[i]:
                         if (threshold_is_valid(t[0], syn[i][j])
                             or t[0] == syn[i][j] + "s"
-                            or equal_to_extra_words(form[i], t[0])):
-                            return form[i]
+                            or equal_to_extra_words(USER_FORM[i][0], t[0])):
+                            return USER_FORM[i][0]
 
 
 """******************************* ENTRY POINT ******************************"""
