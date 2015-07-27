@@ -35,7 +35,6 @@ SEN_FILE = ("sentences.txt", None)
 THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
-
 USER_FORM = ("car",
              "pool",
              "house", 
@@ -197,3 +196,4 @@ if __name__ == "__main__":
         if sys.stdin.read(1).lower() == "q":
             break
         
+
