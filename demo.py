@@ -34,11 +34,11 @@ SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
-USER_FORM = (("car", []),
-             ("pool", []),
-             ("house", []),
+USER_FORM = (("car", None),
+             ("pool", None),
+             ("house", None),
              ("snow", ["shovel"]),
-             ("babysitter", []),
+             ("babysitter", None),
              ("appointment", ["schedule", "meeting"]))
 
 
@@ -85,7 +85,7 @@ def get_synonyms(token):
 def equal_to_extra_words(key, token):
     if type(token) == type(key) == str:
         for f in USER_FORM:
-            if f[0] == key:
+            if f[0] == key and type(f[1]) == list:
                 for w in f[1]:
                     if token == w:
                         return True
