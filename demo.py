@@ -85,8 +85,8 @@ def get_synonyms(token):
 def spell_check(tokens):
     if type(tokens) == list:
         sd = enchant.Dict("en_US"); size = len(tokens);
-        new_list = [None]*size; __range = range(size)
-        for i in __range:
+        new_list = [None]*size; tokens_range = range(size)
+        for i in tokens_range:
             suggestions = sd.suggest(tokens[i])
             if sd.check(tokens[i]):
                 new_list[i] = tokens[i]
@@ -111,10 +111,10 @@ def threshold_is_valid(w1, w2):
 """********************** Validate the sentence format **********************"""
 def validate_format(sen):
     if type(sen) == str:
-        size = len(sen); __range = range(size) 
+        size = len(sen); sen_range = range(size) 
         if size > MIN_LENGTH[0]:
             end_symbols = 0; valid = True
-            for i in __range:         
+            for i in sen_range:         
                 if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
                     end_symbols += 1
                     if end_symbols == 1 and i+1 < size:
@@ -141,10 +141,10 @@ def get_digits(tags):
 """************************** Recognition process ***************************"""
 def recognition_process(tags):
     if type(tags) == list and type(tags[0]) == tuple:
-        syn = [get_synonyms(w) for w in USER_FORM]; range_syn = range(len(syn))
+        syn = [get_synonyms(w) for w in USER_FORM]; syn_range = range(len(syn))
         for t in tags:
             if t[1] == "NOUN" or t[1] == "ADJ" or t[1] == "VERB":
-                for i in range_syn:
+                for i in syn_range:
                     for j in range(len(syn[i])):
                         if (threshold_is_valid(t[0], syn[i][j])
                             or t[0] == syn[i][j] + "s"):
