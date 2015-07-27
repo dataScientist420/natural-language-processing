@@ -74,27 +74,27 @@ def word_to_num(w):
 
 
 """**************** Create a list of synonyms for the word arg **************"""
-def get_synonyms(word):
-    if type(word) == str:
-        for s in wordnet.synsets(word):
+def get_synonyms(token):
+    if type(token) == str:
+        for s in wordnet.synsets(token):
             synonyms = [l.name() for l in s.lemmas()]
         return synonyms
     else: return []
 
 
 """********************* Create a list for spell check **********************"""
-def spell_check(words):
-    if type(words) == list:
+def spell_check(tokens):
+    if type(tokens) == list:
         spell_dict = enchant.Dict("en_US")
-        length = len(words)
+        length = len(tokens)
         new_list = [None]*length
         for i in range(length):
-            suggestions = spell_dict.suggest(words[i])
-            if spell_dict.check(words[i]):
-                new_list[i] = words[i]
-            elif suggestions and dist(words[i], suggestions[0]) <= MAX_DIST[0]:
+            suggestions = spell_dict.suggest(tokens[i])
+            if spell_dict.check(tokens[i]):
+                new_list[i] = tokens[i]
+            elif suggestions and dist(tokens[i], suggestions[0]) <= MAX_DIST[0]:
                 new_list[i] = suggestions[0]
-            else: new_list[i] = words[i]
+            else: new_list[i] = tokens[i]
         return new_list
     else: return []
 
@@ -165,17 +165,17 @@ if __name__ == "__main__":
         format_flag = format_is_valid(sentence)
 
         # TOKENISATION
-        words = tokenize.word_tokenize(sentence)
+        tokens = tokenize.word_tokenize(sentence)
 
         # SPELL CHECKING
-        spell_check_w = spell_check(words)
+        modif_tokens = spell_check(tokens)
 
         # FILTERING TOKENS 
         stop_words = set(stop.words("english")) 
-        filtered_words = [w for w in spell_check_w if w not in stop_words]
+        filtered_tokens = [w for w in modif_tokens if w not in stop_words]
     
         # SPEECH TAGGING 
-        tags = pos_tag(filtered_words, tagset="universal")
+        tags = pos_tag(filtered_tokens, tagset="universal")
         
         # RELATION RECOGNITION
         user_form = recognition_process(tags)
@@ -185,9 +185,9 @@ if __name__ == "__main__":
             format_flag = False
     
         print("\nSENTENCE\n", sentence)
-        print("TOKENS\n", words)
-        print("\nSPELL CHECK\n", spell_check_w)
-        print("\nFILTERED TOKENS\n", filtered_words)
+        print("TOKENS\n", tokens)
+        print("\nSPELL CHECK\n", modif_tokens)
+        print("\nFILTERED TOKENS\n", filtered_tokens)
         print("\nTAGGING\n", tags)
         print("\nVALID FORMAT:", format_flag)
         print("\nDIGITS:", get_digits(tags))
