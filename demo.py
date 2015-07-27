@@ -79,7 +79,7 @@ def get_synonyms(token):
         for s in wordnet.synsets(token):
             synonyms = [l.name() for l in s.lemmas()]
         return synonyms
-    else: return []
+    return []
 
 
 """********************* Create a list for spell check **********************"""
@@ -94,7 +94,7 @@ def spell_check(tokens):
                 new_list[i] = suggestions[0]
             else: new_list[i] = tokens[i]
         return new_list
-    else: return []
+    return []
 
 
 """****************** Validate the threshold between 2 words ****************"""
@@ -110,7 +110,6 @@ def threshold_is_valid(w1, w2):
 
 """********************** Validate the sentence format **********************"""
 def format_is_valid(sen):
-    valid = False 
     if type(sen) == str:
         size = len(sen)
         if size > MIN_LENGTH[0]:
@@ -121,22 +120,23 @@ def format_is_valid(sen):
                     if end_symbols == 1 and i+1 < size:
                         valid = sen[i+1] == "\n" 
                     elif end_symbols > 1: break
-    return valid
+            return valid
+    return False
 
 
 """*********************** Get digits from the tags list ********************"""
-def get_digits(tags):
-    digits = [] 
+def get_digits(tags): 
     if type(tags) == list and type(tags[0]) == tuple:
-        size = len(tags)
+        size = len(tags); digits = []
         for i in range(size):
             if tags[i][1] == "NUM":
                 if tags[i][0].isdigit():
                     digits.append(int(tags[i][0]))
                 else:
                     digits.append(word_to_num(tags[i][0].lower()))
-    digits.sort()
-    return digits
+        digits.sort()
+        return digits
+    return []
 
 
 """************************** Recognition process ***************************"""
