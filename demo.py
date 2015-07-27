@@ -108,7 +108,7 @@ def threshold_is_valid(w1, w2):
 
 
 """********************** Validate the sentence format **********************"""
-def format_is_valid(sen):
+def validate_format(sen):
     if type(sen) == str:
         size = len(sen)
         if size > MIN_LENGTH[0]:
@@ -167,9 +167,9 @@ if __name__ == "__main__":
         cnt += 1
 
         # VALIDATE THE FORMAT
-        format_flag = format_is_valid(sentence)
+        format_is_valid = validate_format(sentence)
 
-        if format_flag:
+        if format_is_valid:
             # TOKENISATION
             tokens = tokenize.word_tokenize(sentence)
 
@@ -187,9 +187,9 @@ if __name__ == "__main__":
             user_form = recognition_process(tags)
     
         print("\nSENTENCE\n", sentence)
-        print("\nVALID FORMAT:", format_flag)
-
-        if format_flag:
+        print("\nVALID FORMAT:", format_is_valid)
+        
+        if format_is_valid:
             print("\n\nTOKENS\n", tokens)
             print("\n\nSPELL CHECK\n", modified_tokens)
             print("\n\nFILTERED TOKENS\n", filtered_tokens)
@@ -200,3 +200,4 @@ if __name__ == "__main__":
         # ENDING THE PROGRAM OR NOT ?
         if sys.stdin.read(1).lower() == "q":
             break
+
