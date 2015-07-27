@@ -141,7 +141,8 @@ def get_digits(tags):
 """************************** Recognition process ***************************"""
 def recognition_process(tags):
     if type(tags) == list and type(tags[0]) == tuple:
-        syn = [get_synonyms(w) for w in USER_FORM]; syn_range = range(len(syn))
+        syn = [get_synonyms(w) for w in USER_FORM]
+        syn_range = range(len(syn))
         for t in tags:
             if t[1] == "NOUN" or t[1] == "ADJ" or t[1] == "VERB":
                 for i in syn_range:
