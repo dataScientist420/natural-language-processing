@@ -56,28 +56,21 @@ def read_sen_file():
     return l_sent
 
 
-"""***** Verify that the 1st str arg is the plural of the 2nd str arg *******"""
-def isplural(w1, w2):
-    if type(w1) == type(w2) == str:
-        return w1 == w2+"s"
-    else: return False
-
-
 """**************** Convert word to num to represent hours  *****************"""
-def word_to_num(w):
-    if type(w) == str:
-        if w == "one":    return 1
-        if w == "two":    return 2
-        if w == "three":  return 3
-        if w == "four":   return 4
-        if w == "five":   return 5
-        if w == "six":    return 6
-        if w == "seven":  return 7
-        if w == "eight":  return 8
-        if w == "nine":   return 9
-        if w == "ten":    return 10
-        if w == "eleven": return 11
-        if w == "twelve": return 12
+def word_to_num(token):
+    if type(token) == str:
+        if token == "one":    return 1
+        if token == "two":    return 2
+        if token == "three":  return 3
+        if token == "four":   return 4
+        if token == "five":   return 5
+        if token == "six":    return 6
+        if token == "seven":  return 7
+        if token == "eight":  return 8
+        if token == "nine":   return 9
+        if token == "ten":    return 10
+        if token == "eleven": return 11
+        if token == "twelve": return 12
 
 
 """**************** Create a list of synonyms for the word arg **************"""
@@ -153,7 +146,7 @@ def recognition_process(tags):
                 for j in range(len(syn)):
                     for k in range(len(syn[j])):
                         if (threshold_is_valid(tags[i][0], syn[j][k])
-                            or isplural(tags[i][0], syn[j][k])):
+                            or tags[i][0] == syn[j][k] + "s"):
                             return USER_FORM[j]
 
 
