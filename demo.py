@@ -82,7 +82,7 @@ def get_synonyms(token):
 
 
 """*********** Verify if token equals to user form extra words  *************"""
-def equal_to_extra_keys(key, token):
+def equal_to_extra_words(key, token):
     if type(token) == type(key) == str:
         for f in USER_FORM:
             if f[0] == key:
@@ -161,7 +161,7 @@ def recognition_process(tags):
                     for j in range(len(syn[i])):
                         if (threshold_is_valid(t[0], syn[i][j])
                             or t[0] == syn[i][j] + "s"
-                            or equal_to_extra_keys(form[i], t[0])):
+                            or equal_to_extra_words(form[i], t[0])):
                             return form[i]
 
 
