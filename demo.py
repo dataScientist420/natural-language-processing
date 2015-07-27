@@ -84,8 +84,8 @@ def get_synonyms(token):
 """********************* Create a list for spell check **********************"""
 def spell_check(tokens):
     if type(tokens) == list:
-        sd = enchant.Dict("en_US"); size = len(tokens);
-        new_list = [None]*size; tokens_range = range(size)
+        sd = enchant.Dict("en_US"); length = len(tokens);
+        new_list = [None]*length; tokens_range = range(length)
         for i in tokens_range:
             suggestions = sd.suggest(tokens[i])
             if sd.check(tokens[i]):
@@ -111,13 +111,13 @@ def threshold_is_valid(w1, w2):
 """********************** Validate the sentence format **********************"""
 def validate_format(sen):
     if type(sen) == str:
-        size = len(sen); sen_range = range(size) 
-        if size > MIN_LENGTH[0]:
+        length = len(sen); sen_range = range(length) 
+        if length > MIN_LENGTH[0]:
             end_symbols = 0; valid = True
             for i in sen_range:         
                 if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
                     end_symbols += 1
-                    if end_symbols == 1 and i+1 < size:
+                    if end_symbols == 1 and i+1 < length:
                         valid = sen[i+1] == "\n" 
                     elif end_symbols > 1: break
             return valid
