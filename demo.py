@@ -13,7 +13,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-File: test.py
+File: demo.py
 Description: this file is used for testing the nltk module
 Author: Victor Neville
 Python version: 3.4.0
