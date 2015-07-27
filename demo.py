@@ -131,7 +131,8 @@ def get_digits(tags):
             if tags[i][1] == "NUM":
                 if tags[i][0].isdigit():
                     digits.append(int(tags[i][0]))
-                else: digits.append(word_to_num(tags[i][0].lower()))
+                else:
+                    digits.append(word_to_num(tags[i][0].lower()))
     digits.sort()
     return digits
 
