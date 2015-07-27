@@ -168,7 +168,6 @@ if __name__ == "__main__":
 
         # VALIDATE THE FORMAT
         format_flag = format_is_valid(sentence)
-
         
         # TOKENISATION
         tokens = tokenize.word_tokenize(sentence)
