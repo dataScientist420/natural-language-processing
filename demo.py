@@ -154,6 +154,7 @@ def recognition_process(tags):
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
     cnt = 0
+    
     while True: 
         # CLEARING THE SCREEN
         print("\n" * 100)
