@@ -36,7 +36,7 @@ MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
 
 
-"""************************** OTHER GLOBAL VARIABLES ************************"""
+"""*************************** OTHER GLOBAL VAR *****************************"""
 USER_FORM = {"car": [],
              "pool": [],
              "house": [],
