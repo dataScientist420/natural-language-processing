@@ -78,7 +78,7 @@ def get_synonyms(token):
         for s in wordnet.synsets(token):
             synonyms = [l.name() for l in s.lemmas()]
         return synonyms
-    return list()
+    return []
 
 
 """********************* Create a list for spell check **********************"""
@@ -94,7 +94,7 @@ def spell_check(tokens):
                 new_words[i] = suggestions[0]
             else: new_words[i] = tokens[i]
         return new_words
-    return list()
+    return []
 
 
 """****************** Validate the threshold between 2 words ****************"""
