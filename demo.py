@@ -143,8 +143,7 @@ def get_digits(tags):
             if t[1] == "NUM":
                 if t[0].isdigit():
                     digits.append(int(t[0]))
-                else:
-                    digits.append(word_to_num(t[0].lower()))
+                else: digits.append(word_to_num(t[0]))
     digits.sort()
     return digits
     
