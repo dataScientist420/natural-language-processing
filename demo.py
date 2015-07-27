@@ -75,11 +75,9 @@ def word_to_num(w):
 
 """**************** Create a list of synonyms for the word arg **************"""
 def get_synonyms(word):
-    synonyms = []
     if type(word) == str:
         for s in wordnet.synsets(word):
-            for l in s.lemmas():
-                synonyms.append(l.name())
+            synonyms = [l.name() for l in s.lemmas()]
     return synonyms
 
 
