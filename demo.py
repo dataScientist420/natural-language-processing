@@ -127,7 +127,7 @@ def format_is_valid(sen):
 """*********************** Get digits from the tags list ********************"""
 def get_digits(tags):
     digits = []
-    if type(tags) == list:
+    if type(tags) == list and type(tags[0]) == tuple:
         for i in range(len(tags)):
             if tags[i][1] == "NUM":
                 if tags[i][0].isdigit():
