@@ -25,7 +25,6 @@ import enchant
 from nltk import pos_tag
 from nltk import tokenize
 from nltk.corpus import wordnet
-from random import randrange as rand
 from nltk.corpus import stopwords as stop
 from nltk.metrics import edit_distance as dist
 
@@ -154,6 +153,7 @@ def recognition_process(tags):
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
+    cnt = 0
     while True: 
         # CLEARING THE SCREEN
         print("\n" * 100)
@@ -161,8 +161,9 @@ if __name__ == "__main__":
         # READ THE SENCENCES FROM FILE
         l_sent = read_sen_file()
 
-        # SELECT RANDOM SENTENCE
-        sentence = l_sent[rand(0, len(l_sent))]
+        # SELECT A SENTENCE
+        sentence = l_sent[cnt % len(l_sent)]
+        cnt += 1
 
         # VALIDATE THE FORMAT
         format_flag = format_is_valid(sentence)
