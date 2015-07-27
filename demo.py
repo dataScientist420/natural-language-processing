@@ -168,11 +168,11 @@ if __name__ == "__main__":
         tokens = tokenize.word_tokenize(sentence)
 
         # SPELL CHECKING
-        modif_tokens = spell_check(tokens)
+        modified_tokens = spell_check(tokens)
 
         # FILTERING TOKENS 
         stop_words = set(stop.words("english")) 
-        filtered_tokens = [w for w in modif_tokens if w not in stop_words]
+        filtered_tokens = [w for w in modified_tokens if w not in stop_words]
     
         # SPEECH TAGGING 
         tags = pos_tag(filtered_tokens, tagset="universal")
@@ -186,7 +186,7 @@ if __name__ == "__main__":
     
         print("\nSENTENCE\n", sentence)
         print("TOKENS\n", tokens)
-        print("\nSPELL CHECK\n", modif_tokens)
+        print("\nSPELL CHECK\n", modified_tokens)
         print("\nFILTERED TOKENS\n", filtered_tokens)
         print("\nTAGGING\n", tags)
         print("\nVALID FORMAT:", format_flag)
