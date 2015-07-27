@@ -78,7 +78,8 @@ def get_synonyms(word):
     if type(word) == str:
         for s in wordnet.synsets(word):
             synonyms = [l.name() for l in s.lemmas()]
-    return synonyms
+        return synonyms
+    else: return []
 
 
 """********************* Create a list for spell check **********************"""
