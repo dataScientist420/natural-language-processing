@@ -84,7 +84,7 @@ def get_synonyms(token):
     return []
 
 
-"""*********** Verify if token equals to user form extra keys  **************"""
+"""*********** Verify if token equals to user form extra words  *************"""
 def equal_to_extra_keys(key, token):
     if type(token) == type(key) == str:
         for w in USER_FORM[key]:
