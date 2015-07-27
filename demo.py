@@ -86,8 +86,9 @@ def get_synonyms(word):
 def spell_check(words):
     if type(words) == list:
         spell_dict = enchant.Dict("en_US")
-        new_list = [None]*len(words)
-        for i in range(len(words)):
+        length = len(words)
+        new_list = [None]*length
+        for i in range(length):
             suggestions = spell_dict.suggest(words[i])
             if spell_dict.check(words[i]):
                 new_list[i] = words[i]
