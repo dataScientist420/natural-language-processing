@@ -85,11 +85,10 @@ def get_synonyms(token):
 """********************* Create a list for spell check **********************"""
 def spell_check(tokens):
     if type(tokens) == list:
-        spell_dict = enchant.Dict("en_US")
-        length = len(tokens); new_list = [None]*length
+        sd = enchant.Dict("en_US"); length = len(tokens); new_list = [None]*length
         for i in range(length):
-            suggestions = spell_dict.suggest(tokens[i])
-            if spell_dict.check(tokens[i]):
+            suggestions = sd.suggest(tokens[i])
+            if sd.check(tokens[i]):
                 new_list[i] = tokens[i]
             elif suggestions and dist(tokens[i], suggestions[0]) <= MAX_DIST[0]:
                 new_list[i] = suggestions[0]
