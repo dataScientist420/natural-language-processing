@@ -168,31 +168,34 @@ if __name__ == "__main__":
 
         # VALIDATE THE FORMAT
         format_flag = format_is_valid(sentence)
-        
-        # TOKENISATION
-        tokens = tokenize.word_tokenize(sentence)
 
-        # SPELL CHECKING
-        modified_tokens = spell_check(tokens)
+        if format_flag:
+            # TOKENISATION
+            tokens = tokenize.word_tokenize(sentence)
 
-        # FILTERING TOKENS 
-        stop_words = set(stop.words("english")) 
-        filtered_tokens = [w for w in modified_tokens if w not in stop_words]
+            # SPELL CHECKING
+            modified_tokens = spell_check(tokens)
+
+            # FILTERING TOKENS 
+            stop_words = set(stop.words("english")) 
+            filtered_tokens = [w for w in modified_tokens if w not in stop_words]
     
-        # SPEECH TAGGING 
-        tags = pos_tag(filtered_tokens, tagset="universal")
+            # SPEECH TAGGING 
+            tags = pos_tag(filtered_tokens, tagset="universal")
         
-        # RELATION RECOGNITION
-        user_form = recognition_process(tags)
+            # RELATION RECOGNITION
+            user_form = recognition_process(tags)
     
         print("\nSENTENCE\n", sentence)
-        print("TOKENS\n", tokens)
-        print("\nSPELL CHECK\n", modified_tokens)
-        print("\nFILTERED TOKENS\n", filtered_tokens)
-        print("\nTAGGING\n", tags)
         print("\nVALID FORMAT:", format_flag)
-        print("\nDIGITS:", get_digits(tags))
-        print("\nUSERFORM:", user_form)
+
+        if format_flag:
+            print("\n\nTOKENS\n", tokens)
+            print("\n\nSPELL CHECK\n", modified_tokens)
+            print("\n\nFILTERED TOKENS\n", filtered_tokens)
+            print("\n\nTAGGING\n", tags)
+            print("\n\nDIGITS:", get_digits(tags))
+            print("\n\nUSERFORM:", user_form)
 
         # ENDING THE PROGRAM OR NOT ?
         if sys.stdin.read(1).lower() == "q":
