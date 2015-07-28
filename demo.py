@@ -132,8 +132,7 @@ def validate_format(sen):
                     end_symbols += 1
                     if end_symbols == 1 and i+1 < length:
                         valid = sen[i+1] == "\n" or sen[i+1] == " "
-                        if i+2 < length:
-                            valid = sen[i+2] == " "
+                        if i+2 < length: valid = sen[i+2] == " "
                     elif end_symbols > 1: break
             return valid
     return False
@@ -216,5 +215,4 @@ if __name__ == "__main__":
         # ENDING THE PROGRAM OR NOT ?
         if sys.stdin.read(1).lower() == "q":
             break
-
 
