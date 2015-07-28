@@ -37,12 +37,14 @@ SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
-USER_FORM = (("car", None),
-             ("pool", ("basin", None)),
-             ("snow", ("shovel", None)),
-             ("babysitter", None),
-             ("house", ("residence", None)),
-             ("appointment", ("schedule", "meeting")))
+USER_FORM = (
+            ("car", None),
+            ("pool", ("basin", None)),
+            ("snow", ("shovel", None)),
+            ("babysitter", None),
+            ("house", ("residence", None)),
+            ("appointment", ("schedule", "meeting"))
+            )
 
 
 """**************************** Read text file ******************************"""
