@@ -131,9 +131,9 @@ def validate_format(sen):
                 if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
                     end_symbols += 1
                     if end_symbols == 1 and i+1 < length:
-                        valid = sen[i+1] == "\n"
-                        #if i+2 < i+3 < length:
-                        #    valid = sen[i+1] == sen[i+2] == sen[i+3] == " "
+                        valid = sen[i+1] == "\n" or sen[i+1] == " "
+                        if i+2 < length:
+                            valid = sen[i+2] == " "
                     elif end_symbols > 1: break
             return valid
     return False
