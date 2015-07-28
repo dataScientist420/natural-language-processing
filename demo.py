@@ -39,9 +39,9 @@ MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
 USER_FORM = (#userform key   extra words
             ("car",          None),
+            ("babysitter",   None),
             ("pool",         ("basin", None)),
             ("snow",         ("shovel", None)),
-            ("babysitter",   None),
             ("house",        ("residence", None)),
             ("appointment",  ("schedule", "meeting"))
             )
