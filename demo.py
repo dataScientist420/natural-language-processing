@@ -35,10 +35,10 @@ THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
 USER_FORM = (("car", None),
-             ("pool", None),
-             ("house", None),
+             ("pool", ["basin"]),
              ("snow", ["shovel"]),
              ("babysitter", None),
+             ("house", ["residence"]),
              ("appointment", ["schedule", "meeting"]))
 
 
@@ -214,4 +214,5 @@ if __name__ == "__main__":
         # ENDING THE PROGRAM OR NOT ?
         if sys.stdin.read(1).lower() == "q":
             break
+
 
