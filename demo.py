@@ -38,11 +38,11 @@ THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
 USER_FORM = (("car", None),
-             ("pool", ["basin"]),
-             ("snow", ["shovel"]),
+             ("pool", ("basin", None)),
+             ("snow", ("shovel", None)),
              ("babysitter", None),
-             ("house", ["residence"]),
-             ("appointment", ["schedule", "meeting"]))
+             ("house", ("residence", None)),
+             ("appointment", ("schedule", "meeting")))
 
 
 """**************************** Read text file ******************************"""
@@ -88,7 +88,7 @@ def get_synonyms(token):
 def equal_to_extra_words(key, token):
     if type(token) == type(key) == str:
         for f in USER_FORM:
-            if f[0] == key and type(f[1]) == list:
+            if f[0] == key and type(f[1]) == tuple:
                 for w in f[1]:
                     if token == w:
                         return True
@@ -133,10 +133,13 @@ def validate_format(sen):
             for i in sen_range:         
                 if sen[i] == "." or sen[i] == "!" or sen[i] == "?":
                     end_symbols += 1
-                    if end_symbols == 1 and i+1 < length:
-                        valid = sen[i+1] == "\n" or sen[i+1] == " "
-                        if i+2 < length: valid = sen[i+2] == " "
-                    elif end_symbols > 1: break
+                    if end_symbols == 1:
+                        if i+1 < length:
+                            valid = sen[i+1] == "\n" or sen[i+1] == " "
+                        if i+2 < length:
+                            valid = sen[i+2] == "\n" or sen[i+2] == " " 
+                    elif end_symbols > 1:
+                        break
             return valid
     return False
 
