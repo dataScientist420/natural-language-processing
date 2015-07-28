@@ -157,7 +157,7 @@ def get_digits(tags):
                     digits.append(int(t[0]))
                 else:
                     digits.append(word_to_num(t[0]))
-    digits.sort()
+        digits.sort()
     return digits
     
 
