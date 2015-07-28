@@ -95,8 +95,10 @@ def equal_to_extra_words(key, token):
 """********************* Create a list for spell check **********************"""
 def spell_check(tokens):
     if type(tokens) == list:
-        sd = enchant.Dict("en_US"); length = len(tokens);
-        new_tokens = [None]*length; tokens_range = range(length)
+        sd = enchant.Dict("en_US")
+        length = len(tokens)
+        new_tokens = [None]*length
+        tokens_range = range(length)
         for i in tokens_range:
             suggestions = sd.suggest(tokens[i])
             if sd.check(tokens[i]):
