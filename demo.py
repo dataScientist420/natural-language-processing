@@ -56,7 +56,8 @@ def read_sen_file():
     except IOError as err:
         print("I/O Error %s" %(err))
         sys.exit()
-    else: file.close()
+    else:
+        file.close()
     return l_sent
 
 
@@ -154,7 +155,8 @@ def get_digits(tags):
             if t[1] == "NUM":
                 if t[0].isdigit():
                     digits.append(int(t[0]))
-                else: digits.append(word_to_num(t[0]))
+                else:
+                    digits.append(word_to_num(t[0]))
     digits.sort()
     return digits
     
