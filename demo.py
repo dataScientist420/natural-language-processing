@@ -142,7 +142,7 @@ def validate_format(sen):
                         if i+2 < length:
                             valid = sen[i+2] == "\n" or sen[i+2] == " " 
                     elif end_symbols > 1:
-                        break
+                        valid = False; break
             return valid
     return False
 
