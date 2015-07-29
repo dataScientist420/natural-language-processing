@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+    #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """***************************************************************************** 
@@ -13,9 +13,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Description: This code returns userform keywords after receiving and
-             analysing data from text file. The algorithms use natural
-             language processing techniques.
+Description: This code returns a userform name after analysing data from text file.
+             The algorithms strategies use natural language processing techniques.
 
 File: demo.py
 Author: Victor Neville
@@ -37,13 +36,13 @@ SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
-USER_FORM = (#userform keyword   extra words
-            ("car",              None),
-            ("babysitter",       None),
-            ("pool",             ("basin", None)),
-            ("snow",             ("shovel", None)),
-            ("house",            ("residence", None)),
-            ("appointment",      ("schedule", "meeting"))
+USER_FORM = (#userform name     extra words
+            ("car",             None),
+            ("babysitter",      None),
+            ("pool",            ("basin", None)),
+            ("snow",            ("shovel", None)),
+            ("house",           ("residence", None)),
+            ("appointment",     ("schedule", "meeting"))
             )
 
 
@@ -178,34 +177,34 @@ def recognition_process(tags):
 if __name__ == "__main__":
     cnt = 0
     while True: 
-        # CLEARING THE SCREEN
+        # clearing the screen
         print("\n" * 100)
         
-        # READ THE SENCENCES FROM FILE
+        # read the sentences from file
         l_sent = read_sen_file()
 
-        # SELECT A SENTENCE
+        # select a sentence
         sentence = l_sent[cnt % len(l_sent)]
         cnt += 1
 
-        # VALIDATE THE FORMAT
+        # validate the format
         format_is_valid = validate_format(sentence)
 
         if format_is_valid:
-            # TOKENISATION
+            # tokenisation
             tokens = tokenize.word_tokenize(sentence)
 
-            # SPELL CHECKING
+            # spell checking
             modif_tokens = spell_check(tokens)
 
-            # FILTERING TOKENS 
+            # filtering tokens 
             stop_words = set(stop.words("english")) 
             filt_tokens = [w.lower() for w in modif_tokens if w not in stop_words]
     
-            # SPEECH TAGGING 
+            # speech tagging (identification) 
             tags = pos_tag(filt_tokens, tagset="universal")
         
-            # RELATION RECOGNITION
+            # relation recognition
             user_form = recognition_process(tags)
     
         print("\nSENTENCE\n", sentence)
@@ -219,7 +218,7 @@ if __name__ == "__main__":
             print("\n\nDIGITS:", get_digits(tags))
             print("\n\nUSERFORM:", user_form)
 
-        # ENDING THE PROGRAM OR NOT ?
+        # ending the program or not ?
         if sys.stdin.read(1).lower() == "q":
             break
 
