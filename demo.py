@@ -13,9 +13,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Description: This code returns userform keywords after receiving and analysing
-             data from text file. The algorithms use natural language
-             processing techniques.
+Description: This code returns userform keywords after receiving and
+             analysing data from text file. The algorithms use natural
+             language processing techniques.
 
 File: demo.py
 Author: Victor Neville
