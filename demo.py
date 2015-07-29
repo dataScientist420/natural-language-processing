@@ -14,7 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Description: This code returns userform keywords after receiving and analysing
-             text data from file. The algorithms use natural language
+             data from text file. The algorithms use natural language
              processing techniques.
 
 File: demo.py
@@ -37,13 +37,13 @@ SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
-USER_FORM = (#userform keyword  extra words
-            ("car",             None),
-            ("babysitter",      None),
-            ("pool",            ("basin", None)),
-            ("snow",            ("shovel", None)),
-            ("house",           ("residence", None)),
-            ("appointment",     ("schedule", "meeting"))
+USER_FORM = (#userform keyword   extra words
+            ("car",              None),
+            ("babysitter",       None),
+            ("pool",             ("basin", None)),
+            ("snow",             ("shovel", None)),
+            ("house",            ("residence", None)),
+            ("appointment",      ("schedule", "meeting"))
             )
 
 
