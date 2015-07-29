@@ -13,7 +13,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Description: This code returns userform key words after receiving and analysing
+Description: This code returns userform keywords after receiving and analysing
              text data from file. The algorithms use natural language
              processing techniques.
 
@@ -37,13 +37,13 @@ SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.75, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
-USER_FORM = (#userform key   extra words
-            ("car",          None),
-            ("babysitter",   None),
-            ("pool",         ("basin", None)),
-            ("snow",         ("shovel", None)),
-            ("house",        ("residence", None)),
-            ("appointment",  ("schedule", "meeting"))
+USER_FORM = (#userform keyword  extra words
+            ("car",             None),
+            ("babysitter",      None),
+            ("pool",            ("basin", None)),
+            ("snow",            ("shovel", None)),
+            ("house",           ("residence", None)),
+            ("appointment",     ("schedule", "meeting"))
             )
 
 
