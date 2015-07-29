@@ -13,7 +13,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Description: This code generates user forms after receiving and analysing
+Description: This code returns userform key words after receiving and analysing
              text data from file. The algorithms use natural language
              processing techniques.
 
