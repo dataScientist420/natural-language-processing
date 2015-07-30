@@ -121,7 +121,7 @@ rent a room for a month
 borrow a car for the weekend
 need a guide to visit Montreal
 need guide to visit Montreal
-need a guide to visit Montréal
+need a guide to visit Montreal
 I'm looking for a guide to show me around my new neighborhood.
 looking for a gide to show me around my new neighborhood.
 looking for a guide to show me around my new neigborhood.
