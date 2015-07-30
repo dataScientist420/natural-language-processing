@@ -113,8 +113,8 @@ def get_synonyms(token):
     return synonyms
 
 
-"""*********** Verify if token equals to user form extra words  *************"""
-def equal_to_extra_words(key, token):
+"""************* Compare token with the userform's extra words  *************"""
+def cmp_with_extra_words(key, token):
     if type(token) == type(key) == str:
         for f in USER_FORM:
             if f[0] == key and type(f[1]) == tuple:
@@ -198,7 +198,7 @@ def recognition_process(tags):
                 for i in list_range:
                     for j in syn_range[i]:
                         if (threshold_is_valid(t[0], syn[i][j])
-                            or equal_to_extra_words(USER_FORM[i][0], t[0])):
+                            or cmp_with_extra_words(USER_FORM[i][0], t[0])):
                             return USER_FORM[i][0]
 
 
