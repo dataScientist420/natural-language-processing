@@ -161,13 +161,13 @@ def validate_format(sen):
     if type(sen) == str:
         length = len(sen); sen_range = range(length) 
         if length > MIN_LENGTH[0]:
-            flag = False; valid = True
+            flag = False
             for i in sen_range:         
                 if sen[i] == "." or sen[i] == "!" or sen[i] == "?" and not flag:
                     flag = True
                 elif flag and sen[i].isalnum():
-                    valid = False; break
-            return valid
+                    return False
+            return True
     return False
 
 
