@@ -33,16 +33,41 @@ from nltk.metrics import edit_distance as dist
 
 """****************************** CONSTANTS *********************************"""
 SEN_FILE = ("input.txt", None)
-THRESHOLD = (0.75, None)
+THRESHOLD = (0.9, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
 USER_FORM = (#userform name     extra words
-            ("car",             None),
-            ("babysitter",      None),
+            ("tutor",           None),
+            ("photograph",      None),
+            ("therapist",       None),
+            ("caterer",         None),
+            ("dentist",         None),
+            ("driver",          None),
+            ("bodyguard",       None),
+            ("programmer",      None),
+            ("exterminator",    None),
+            ("tattooist",       None),
+            ("waitress",        None),
+            ("guide",           None),
+            ("storage",         None),
+            ("renting",         None),
+            ("delivery",        None),
+            ("sports",          None),
+            ("painter",         ("paint", None)),
+            ("move",            ("moving", None)),
+            ("musician",        ("sound", None)),
+            ("carpooling",       ("getting", None)),
             ("pool",            ("basin", None)),
             ("snow",            ("shovel", None)),
-            ("house",           ("residence", None)),
-            ("appointment",     ("schedule", "meeting"))
+            ("trainer",         ("animal", None)),
+            ("gardener",        ("lawn", "flowers")),
+            ("car",             ("garage", "towing")),
+            ("party",           ("bouncer", "security")),
+            ("appointment",     ("schedule", "meeting")),
+            ("babysitter",      ("kids", "children", "housekeeping")),
+            ("house",           ("residence", "apartment", "porch", "deck", "roof")),
+            ("plumber",         ("toilet", "air", "conditioner", "swing")),
+            ("couturier",       ("shirts", "fashion", "tailor", "clothes"))
             )
 
 
@@ -79,11 +104,13 @@ def word_to_num(token):
 
 """**************** Create a list of synonyms for the word arg **************"""
 def get_synonyms(token):
+    synonyms = []
     if type(token) == str:
         for s in wordnet.synsets(token):
-            synonyms = [l.name() for l in s.lemmas()]
-        return synonyms
-    return []
+            for w in s.lemmas():
+                try: synonyms.append(w.name())
+                except: continue
+    return synonyms
 
 
 """*********** Verify if token equals to user form extra words  *************"""
@@ -92,7 +119,7 @@ def equal_to_extra_words(key, token):
         for f in USER_FORM:
             if f[0] == key and type(f[1]) == tuple:
                 for w in f[1]:
-                    if token == w:
+                    if threshold_is_valid(token, w):
                         return True
     return False
 
@@ -118,11 +145,14 @@ def spell_check(tokens):
 """****************** Validate the threshold between 2 words ****************"""
 def threshold_is_valid(w1, w2):
     if type(w1) == type(w2) == str:
-        try:
-            syn1 = wordnet.synset(w1+".n.01")
-            syn2 = wordnet.synset(w2+".n.01")
-            return syn1.wup_similarity(syn2) >= THRESHOLD[0]
-        except: return False
+        if w1 == w2 or w1 == w2 + "s":
+            return True
+        else:
+            try:
+                syn1 = wordnet.synset(w1+".n.01")
+                syn2 = wordnet.synset(w2+".n.01")
+                return syn1.wup_similarity(syn2) >= THRESHOLD[0]
+            except: return False
     return False
 
 
@@ -168,7 +198,6 @@ def recognition_process(tags):
                 for i in list_range:
                     for j in syn_range[i]:
                         if (threshold_is_valid(t[0], syn[i][j])
-                            or t[0] == syn[i][j] + "s"
                             or equal_to_extra_words(USER_FORM[i][0], t[0])):
                             return USER_FORM[i][0]
 
