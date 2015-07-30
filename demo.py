@@ -202,7 +202,7 @@ def recognition_process(tags):
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
-    cnt = 0
+    index = 0
     while True: 
         # clearing the screen
         print("\n" * 100)
@@ -211,8 +211,9 @@ if __name__ == "__main__":
         l_sent = read_sen_file()
 
         # select a sentence
-        sentence = l_sent[cnt % len(l_sent)]
-        cnt += 1
+        index %= len(l_sent)
+        sentence = l_sent[index]
+        index += 1
 
         # validate the format
         format_is_valid = validate_format(sentence)
@@ -234,7 +235,7 @@ if __name__ == "__main__":
             # relation recognition
             user_form = recognition_process(tags)
     
-        print("\nSENTENCE\n", sentence)
+        print("\nSENTENCE #%d\n" %(index), sentence)
         print("\nVALID FORMAT:", format_is_valid)
         
         if format_is_valid:
