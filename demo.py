@@ -31,7 +31,7 @@ from nltk.corpus import stopwords as stop
 from nltk.metrics import edit_distance as dist
 
 
-"""****************************** CONSTANTS *********************************"""
+"""****************************** Constants *********************************"""
 SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.9, None)
 MIN_LENGTH = (3, None)
@@ -142,20 +142,7 @@ def spell_check(tokens):
     return []
 
 
-"""****************** Validate the threshold between 2 words ****************"""
-def threshold_is_valid(w1, w2):
-    if type(w1) == type(w2) == str:
-        if w1 == w2 or w1 == w2 + "s":
-            return True
-        else:
-            try:
-                syn1 = wordnet.synset(w1+".n.01")
-                syn2 = wordnet.synset(w2+".n.01")
-                return syn1.wup_similarity(syn2) >= THRESHOLD[0]
-            except: return False
-    return False
-
-
+"""****************** Get the threshold value between 2 words ***************"""
 def get_threshold(w1, w2):
     if type(w1) == type(w2) == str:
         if w1 == w2 or w1 == w2 + "s":
@@ -220,9 +207,8 @@ def recognition_process(tags):
                                 no = i
         return USER_FORM[no][0]
                         
-                        
 
-"""******************************* ENTRY POINT ******************************"""
+"""******************************* Entry Point ******************************"""
 if __name__ == "__main__":
     index = 0
     while True: 
