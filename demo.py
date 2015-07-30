@@ -31,7 +31,7 @@ from nltk.corpus import stopwords as stop
 from nltk.metrics import edit_distance as dist
 
 
-"""****************************** Constants *********************************"""
+"""****************************** CONSTANTS *********************************"""
 SEN_FILE = ("input.txt", None)
 THRESHOLD = (0.9, None)
 MIN_LENGTH = (3, None)
@@ -42,32 +42,36 @@ USER_FORM = (#userform name     extra words
             ("therapist",       None),
             ("caterer",         None),
             ("dentist",         None),
-            ("driver",          None),
+            ("lawyer",          None),
             ("bodyguard",       None),
+            ("mecanician",      None),
             ("programmer",      None),
             ("exterminator",    None),
             ("tattooist",       None),
             ("waitress",        None),
-            ("guide",           None),
             ("storage",         None),
-            ("renting",         None),
             ("delivery",        None),
             ("sports",          None),
+            ("guide",           ("gide", None)),
+            ("renting",         ("rent", None)),
+            ("driver",          ("drive", None)),
+            ("housemaid",       ("lady", None)),
             ("painter",         ("paint", None)),
             ("move",            ("moving", None)),
             ("musician",        ("sound", None)),
-            ("carpooling",       ("getting", None)),
-            ("pool",            ("basin", None)),
             ("snow",            ("shovel", None)),
             ("trainer",         ("animal", None)),
-            ("gardener",        ("lawn", "flowers")),
-            ("car",             ("garage", "towing")),
-            ("party",           ("bouncer", "security")),
+            ("pool",            ("basin", "pol")),
+            ("event",           ("bouncer", "security")),
             ("appointment",     ("schedule", "meeting")),
+            ("gardener",        ("lawn", "flowers", "garden")),
+            ("carpooling",      ("getting", "lift", "carpooling")),
+            ("plumber",         ("toilet", "conditioner", "swing")),
             ("babysitter",      ("kids", "children", "housekeeping")),
-            ("house",           ("residence", "apartment", "porch", "deck", "roof")),
-            ("plumber",         ("toilet", "air", "conditioner", "swing")),
-            ("couturier",       ("shirts", "fashion", "tailor", "clothes"))
+            ("couturier",       ("shirt", "fashion", "tailor", "clothes",
+                                 "t-shirt")),
+            ("car",             ("garage", "towing", "mechanician", "carburator")),
+            ("house",           ("residence", "apartment", "porch", "deck", "roof"))
             )
 
 
@@ -191,7 +195,7 @@ def recognition_process(tags):
         syn = [get_synonyms(f[0]) for f in USER_FORM]
         syn_range = [range(len(l)) for l in syn]
         list_range = range(len(syn))
-        threshold_max = no = int()
+        threshold_max = index = int()
         for t in tags:
             if t[1] == "NOUN" or t[1] == "ADJ" or t[1] == "VERB":
                 for i in list_range:
@@ -204,8 +208,9 @@ def recognition_process(tags):
                                 continue
                             elif (threshold_max < threshold):
                                 threshold_max = threshold
-                                no = i
-        return USER_FORM[no][0]
+                                index = i
+        if threshold_max:
+            return USER_FORM[index][0]
                         
 
 """******************************* Entry Point ******************************"""
