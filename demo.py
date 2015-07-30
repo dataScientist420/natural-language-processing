@@ -114,12 +114,12 @@ def get_synonyms(token):
 
 
 """************* Compare token with the userform's extra words  *************"""
-def cmp_with_extra_words(key, token):
+def corresponds_to_extra_words(key, token):
     if type(token) == type(key) == str:
         for f in USER_FORM:
             if f[0] == key and type(f[1]) == tuple:
                 for w in f[1]:
-                    if threshold_is_valid(token, w):
+                    if get_threshold(token, w) >= THRESHOLD[0]:
                         return True
     return False
 
@@ -154,6 +154,19 @@ def threshold_is_valid(w1, w2):
                 return syn1.wup_similarity(syn2) >= THRESHOLD[0]
             except: return False
     return False
+
+
+def get_threshold(w1, w2):
+    if type(w1) == type(w2) == str:
+        if w1 == w2 or w1 == w2 + "s":
+            return 1
+        else:
+            try:
+                syn1 = wordnet.synset(w1+".n.01")
+                syn2 = wordnet.synset(w2+".n.01")
+                return syn1.wup_similarity(syn2)
+            except: return 0
+    return 0
 
 
 """********************** Validate the sentence format **********************"""
@@ -191,14 +204,23 @@ def recognition_process(tags):
         syn = [get_synonyms(f[0]) for f in USER_FORM]
         syn_range = [range(len(l)) for l in syn]
         list_range = range(len(syn))
+        threshold_max = no = int()
         for t in tags:
             if t[1] == "NOUN" or t[1] == "ADJ" or t[1] == "VERB":
                 for i in list_range:
                     for j in syn_range[i]:
-                        if (threshold_is_valid(t[0], syn[i][j])
-                            or cmp_with_extra_words(USER_FORM[i][0], t[0])):
+                        if corresponds_to_extra_words(USER_FORM[i][0], t[0]):
                             return USER_FORM[i][0]
-
+                        else:
+                            threshold = get_threshold(t[0], syn[i][j])
+                            if threshold < THRESHOLD[0]:
+                                continue
+                            elif (threshold_max < threshold):
+                                threshold_max = threshold
+                                no = i
+        return USER_FORM[no][0]
+                        
+                        
 
 """******************************* ENTRY POINT ******************************"""
 if __name__ == "__main__":
