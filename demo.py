@@ -65,7 +65,7 @@ USER_FORM = (#userform name     extra words
             ("plumber",         ("toilet", "conditioner", "swing")),
             ("babysitter",      ("kids", "children", "housekeeping")),
             ("gardener",        ("lawn", "flowers", "garden", "plant",
-                                 "gardn", "gardening")),
+                                 "gardn", "gardening", "mowed")),
             ("couturier",       ("shirt", "fashion", "tailor", "clothes",
                                  "t-shirt", "shirs")),
             ("car",             ("garage", "truk", "towing", "carburator", 
@@ -74,7 +74,7 @@ USER_FORM = (#userform name     extra words
             ("house",           ("residence", "apartment", "porch", "deck",
                                  "roof", "dec", "roof", "chimney", "ditch",
                                  "doghouse", "tree")),
-            ("taxi",            ("driver", "drive", "driv", "pick", "ride")),
+            ("taxi",            ("driver", "drive", "pick", "ride")),
             ("booking",         ("sppointment", "schedule", "meeting", "book")))
 
 
@@ -121,10 +121,10 @@ def get_synonyms(token):
 
 
 """************* Compare token with the userform's extra words  *************"""
-def corresponds_to_extra_words(key, token):
-    if type(token) == type(key) == str:
+def corresponds_to_extra_words(formname, token):
+    if type(token) == type(formname) == str:
         for f in USER_FORM:
-            if f[0] == key and type(f[1]) == tuple:
+            if f[0] == formname and type(f[1]) == tuple:
                 for w in f[1]:
                     if get_threshold(token, w) >= THRESHOLD[0]:
                         return True
@@ -201,11 +201,12 @@ def recognition_process(tags):
         threshold_max = index = int()
         for t in tags:
             if t[1] == "NOUN" or t[1] == "ADJ" or t[1] == "VERB":
-                for i in list_range:
-                    for j in syn_range[i]:
-                        if corresponds_to_extra_words(USER_FORM[i][0], t[0]):
-                            return USER_FORM[i][0]
-                        else:
+                for form in USER_FORM:
+                    if corresponds_to_extra_words(form[0], t[0]):
+                        return form[0]
+                else:
+                    for i in list_range:
+                        for j in syn_range[i]:
                             threshold = get_threshold(t[0], syn[i][j])
                             if threshold < THRESHOLD[0]:
                                 continue
