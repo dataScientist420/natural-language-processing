@@ -185,7 +185,7 @@ def recognition_process(args):
         threshold_max = index = int()
         words_dict = [get_synonyms(f[0]) for f in USER_FORM]
 
-        # merge extra and synonyms for every userform
+        # merge extra words and synonyms in one list, for every userform
         for i, form in enumerate(USER_FORM):
             if type(form[1]) == tuple:
                 for j, word in enumerate(form[1]):
