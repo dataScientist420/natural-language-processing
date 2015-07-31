@@ -33,51 +33,54 @@ from nltk.metrics import edit_distance as dist
 
 """****************************** CONSTANTS *********************************"""
 SEN_FILE = ("input.txt", None)
-THRESHOLD = (0.9, None)
+THRESHOLD = (0.875, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
 USER_FORM = (#userform name     extra words
             ("dentist",         None),
-            ("lawyer",          None),
             ("bodyguard",       None),
-            ("waitress",        None),
             ("storage",         None),
-            ("guide",           ("gide", None)),
+            ("loan",            None),
+            ("dustman",         ("trash", None)),
             ("snow",            ("shovel", None)),
             ("caterer",         ("catrer", None)),
             ("mover",           ("moving", None)),
+            ("ticket",          ("hockey", None)),
             ("therapist",       ("massage", None)),
             ("tutor",           ("tutoring", None)),
-            ("trainer",         ("gym", "workout")),
+            ("guide",           ("gide", "visit")),
             ("renting",         ("rent", "rant")),
             ("pool",            ("basin", "pol")),
+            ("instructor",      ("teach", "learn")),
+            ("trainer",         ("gym", "workout")),
             ("exterminator",    ("roach", "insect")),
             ("assembler",       ("set", "assemble")),
             ("tattooist",       ("tattoo", "piercer")),
-            ("veterinary",      ("animal", "dog", "cat")),
+            ("veterinary",      ("animal", "cat", "dog")),
             ("delivery",        ("bier", "beer", "pizza")),
-            ("photographer",    ("picture", "photo", "pic")),
             ("carpooling",      ("getting", "lift", "carpool")),
-            ("programmer",      ("developer", "web", "computer")),
             ("plumber",         ("toilet", "conditioner", "swing")),
             ("babysitter",      ("kid", "children", "housekeeping")),
             ("taxi",            ("driver", "drive", "pick", "ride")),
-            ("gardener",        ("lawn", "flowers", "garden", "plant",
-                                "gardn", "gardening", "mowed")),
-            ("housemaid",       ("waitress", "lady", "dishes", "laundry",
-                                 "menage")),
+            ("article",         ("shoe", "watch", "perfume", "dress")),
+            ("photographer",    ("picture", "photo", "pic", "photograf")),
+            ("programmer",      ("developer", "web", "computer", "network")),
             ("couturier",       ("shirt", "fashion", "tailor", "clothe",
                                  "t-shirt")),
+            ("gardener",        ("lawn", "flower", "garden", "plant",
+                                "gardn", "gardening", "mowed")),
+            ("housemaid",       ("waitress", "lady", "dish", "laundry",
+                                 "menage", "server")),
             ("car",             ("garage", "truk", "towing", "carburator", 
-                                 "carburetor", "towin")),
+                                 "carburetor")),
             ("event",           ("musician", "bouncer", "security", "DJ",
-                                 "sound")),
+                                 "sound", "mix", "song")),
             ("booking",         ("schedule", "meeting", "appointment",
                                  "book", "pm", "am")),
-            ("house",           ("residence", "apartment", "porch", "deck",
-                                 "roof", "dec", "roof", "chimney", "ditch",
-                                 "doghouse", "tree", "fence", "paint",
-                                 "painter", "gutter")))
+            ("house",           ("residence", "porch", "deck", "roof", "dec",
+                                 "roof", "chimney", "ditch", "doghouse", "tree",
+                                 "fence", "paint", "painter", "gutter", "apartment"
+                                 "paving")))
 
 
 """**************************** Read text file ******************************"""
@@ -133,7 +136,7 @@ def spell_check(tokens):
             suggestions = sd.suggest(tokens[i])
             if sd.check(tokens[i]):
                 new_tokens[i] = tokens[i]
-            elif suggestions and dist(tokens[i], suggestions[0]) <= MAX_DIST[0]:
+            elif suggestions and dist(tokens[i], suggestions[0]) < MAX_DIST[0]:
                 new_tokens[i] = suggestions[0]
             else: new_tokens[i] = tokens[i]
         return new_tokens
@@ -194,7 +197,8 @@ def recognition_process(args):
             if type(form[1]) == tuple:
                 for extra_word in form[1]:
                     words_dict[i].append(extra_word)
-                
+
+        # calling range and len methods before the main loop (optimisation)         
         dict_range = [range(len(l)) for l in words_dict]
         form_range = range(len(USER_FORM))
         for tag in args:
