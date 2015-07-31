@@ -207,9 +207,9 @@ def recognition_process(tags):
                             return USER_FORM[i][0]
                         else:
                             threshold = get_threshold(t[0], syn[i][j])
-                            if threshold <= THRESHOLD[0]:
+                            if threshold < THRESHOLD[0]:
                                 continue
-                            else:
+                            elif threshold_max < threshold:
                                 threshold_max = threshold
                                 index = i
         if threshold_max:
