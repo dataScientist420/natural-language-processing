@@ -183,14 +183,14 @@ def get_digits(tags):
 def recognition_process(args):
     if type(args) == list and type(args[0]) == tuple:
         threshold_max = index = int()
-        words_dict = [get_synonyms(f[0]) for f in USER_FORM]
 
         # merge extra words and synonyms in one list, for every userform
+        words_dict = [get_synonyms(f[0]) for f in USER_FORM]
         for i, form in enumerate(USER_FORM):
             if type(form[1]) == tuple:
                 for j, word in enumerate(form[1]):
                     words_dict[i].append(word)
-                    
+                
         dict_range = [range(len(l)) for l in words_dict]
         form_range = range(len(USER_FORM))
         for tag in args:
@@ -201,11 +201,11 @@ def recognition_process(args):
                         if tmp >= THRESHOLD[0] and threshold_max < tmp:
                             threshold_max = tmp
                             index = i
+                            if threshold_max == 1: break
         if threshold_max:
             return USER_FORM[index][0]
         
                         
-
 """******************************* Entry Point ******************************"""
 if __name__ == "__main__":
     index = 0
