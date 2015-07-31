@@ -204,15 +204,14 @@ def recognition_process(args):
                 for form in USER_FORM:
                     if corresponds_to_extra_words(form[0], tag[0]):
                         return form[0]
-                else:
-                    for i in list_range:
-                        for j in syn_range[i]:
-                            threshold = get_threshold(tag[0], syn[i][j])
-                            if threshold < THRESHOLD[0]:
-                                continue
-                            elif threshold_max < threshold:
-                                threshold_max = threshold
-                                index = i
+                for i in list_range:
+                    for j in syn_range[i]:
+                        threshold = get_threshold(tag[0], syn[i][j])
+                        if threshold < THRESHOLD[0]:
+                            continue
+                        elif threshold_max < threshold:
+                            threshold_max = threshold
+                            index = i
         if threshold_max:
             return USER_FORM[index][0]
                         
