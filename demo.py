@@ -193,21 +193,21 @@ def get_digits(tags):
     
 
 """************************** Recognition process ***************************"""
-def recognition_process(tags):
-    if type(tags) == list and type(tags[0]) == tuple:
+def recognition_process(args):
+    if type(args) == list and type(args[0]) == tuple:
         syn = [get_synonyms(f[0]) for f in USER_FORM]
         syn_range = [range(len(l)) for l in syn]
         list_range = range(len(syn))
         threshold_max = index = int()
-        for t in tags:
-            if t[1] == "NOUN" or t[1] == "ADJ" or t[1] == "VERB":
+        for tag in args:
+            if tag[1] == "NOUN" or tag[1] == "ADJ" or tag[1] == "VERB":
                 for form in USER_FORM:
-                    if corresponds_to_extra_words(form[0], t[0]):
+                    if corresponds_to_extra_words(form[0], tag[0]):
                         return form[0]
                 else:
                     for i in list_range:
                         for j in syn_range[i]:
-                            threshold = get_threshold(t[0], syn[i][j])
+                            threshold = get_threshold(tag[0], syn[i][j])
                             if threshold < THRESHOLD[0]:
                                 continue
                             elif threshold_max < threshold:
