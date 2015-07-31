@@ -43,8 +43,6 @@ USER_FORM = (#userform name     extra words
             ("bodyguard",       None),
             ("waitress",        None),
             ("storage",         None),
-            ("sports",          None),
-            ("assembler",       ("set", None)),
             ("guide",           ("gide", None)),
             ("snow",            ("shovel", None)),
             ("veterinary",      ("animal", None)),
@@ -56,24 +54,24 @@ USER_FORM = (#userform name     extra words
             ("renting",         ("rent", "rant")),
             ("pool",            ("basin", "pol")),
             ("exterminator",    ("roach", "insect")),
+            ("assembler",       ("set", "assembler")),
             ("programmer",      ("developer", "web")),
             ("tattooist",       ("tattoo", "piercer")),
-            ("painter",         ("paint", "peint", "panter")),
             ("housemaid",       ("lady", "dishes", "laundry")),
             ("event",           ("musician", "bouncer", "security", "DJ",
                                  "sound")),
             ("plumber",         ("toilet", "conditioner", "swing")),
-            ("babysitter",      ("kids", "children", "housekeeping")),
+            ("babysitter",      ("kid", "children", "housekeeping")),
             ("gardener",        ("lawn", "flowers", "garden", "plant",
                                  "gardn", "gardening", "mowed")),
-            ("couturier",       ("shirt", "fashion", "tailor", "clothes",
-                                 "t-shirt", "shirs")),
+            ("couturier",       ("shirt", "fashion", "tailor", "clothe",
+                                 "t-shirt", "shir")),
             ("car",             ("garage", "truk", "towing", "carburator", 
                                  "carburetor", "towin")),
             ("carpooling",      ("getting", "lift", "carpool")),
             ("house",           ("residence", "apartment", "porch", "deck",
                                  "roof", "dec", "roof", "chimney", "ditch",
-                                 "doghouse", "tree")),
+                                 "doghouse", "tree", "fence", "paint")),
             ("taxi",            ("driver", "drive", "pick", "ride")),
             ("booking",         ("sppointment", "schedule", "meeting", "book")))
 
@@ -118,17 +116,6 @@ def get_synonyms(token):
                 try: synonyms.append(w.name())
                 except: continue
     return synonyms
-
-
-"""************* Compare token with the userform's extra words  *************"""
-def corresponds_to_extra_words(formname, token):
-    if type(token) == type(formname) == str:
-        for f in USER_FORM:
-            if f[0] == formname and type(f[1]) == tuple:
-                for w in f[1]:
-                    if get_threshold(token, w) >= THRESHOLD[0]:
-                        return True
-    return False
 
 
 """********************* Create a list for spell check **********************"""
@@ -195,22 +182,28 @@ def get_digits(tags):
 """************************** Recognition process ***************************"""
 def recognition_process(args):
     if type(args) == list and type(args[0]) == tuple:
-        syn = [get_synonyms(f[0]) for f in USER_FORM]
-        syn_range = [range(len(l)) for l in syn]
-        form_range = range(len(USER_FORM))
         threshold_max = index = int()
+        words_dict = [get_synonyms(f[0]) for f in USER_FORM]
+
+        # merge extra and synonyms for every userform
+        for i, form in enumerate(USER_FORM):
+            if type(form[1]) == tuple:
+                for j, word in enumerate(form[1]):
+                    words_dict[i].append(word)
+                    
+        dict_range = [range(len(l)) for l in words_dict]
+        form_range = range(len(USER_FORM))
         for tag in args:
             if tag[1] == "NOUN" or tag[1] == "ADJ" or tag[1] == "VERB":
                 for i in form_range:
-                    if corresponds_to_extra_words(USER_FORM[i][0], tag[0]):
-                        return USER_FORM[i][0]
-                    for j in syn_range[i]:
-                        tmp = get_threshold(tag[0], syn[i][j])
+                    for j in dict_range[i]:
+                        tmp = get_threshold(tag[0], words_dict[i][j])
                         if tmp >= THRESHOLD[0] and threshold_max < tmp:
                             threshold_max = tmp
                             index = i
         if threshold_max:
             return USER_FORM[index][0]
+        
                         
 
 """******************************* Entry Point ******************************"""
@@ -252,6 +245,7 @@ if __name__ == "__main__":
         print("\nVALID FORMAT:", format_is_valid)
         
         if format_is_valid:
+            pass
             print("\n\nTOKENS\n", tokens)
             print("\n\nSPELL CHECK\n", modif_tokens)
             print("\n\nFILTERED TOKENS\n", filt_tokens)
