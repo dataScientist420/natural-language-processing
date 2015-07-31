@@ -37,7 +37,6 @@ THRESHOLD = (0.9, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
 USER_FORM = (#userform name     extra words
-            ("photograph",      None),
             ("dentist",         None),
             ("lawyer",          None),
             ("bodyguard",       None),
@@ -45,35 +44,40 @@ USER_FORM = (#userform name     extra words
             ("storage",         None),
             ("guide",           ("gide", None)),
             ("snow",            ("shovel", None)),
-            ("veterinary",      ("animal", None)),
             ("caterer",         ("catrer", None)),
             ("mover",           ("moving", None)),
             ("therapist",       ("massage", None)),
             ("tutor",           ("tutoring", None)),
-            ("delivery",        ("bier", "pizza")),
+            ("trainer",         ("gym", "workout")),
             ("renting",         ("rent", "rant")),
             ("pool",            ("basin", "pol")),
             ("exterminator",    ("roach", "insect")),
-            ("assembler",       ("set", "assembler")),
-            ("programmer",      ("developer", "web")),
+            ("assembler",       ("set", "assemble")),
             ("tattooist",       ("tattoo", "piercer")),
-            ("housemaid",       ("lady", "dishes", "laundry")),
-            ("event",           ("musician", "bouncer", "security", "DJ",
-                                 "sound")),
+            ("veterinary",      ("animal", "dog", "cat")),
+            ("delivery",        ("bier", "beer", "pizza")),
+            ("photographer",    ("picture", "photo", "pic")),
+            ("carpooling",      ("getting", "lift", "carpool")),
+            ("programmer",      ("developer", "web", "computer")),
             ("plumber",         ("toilet", "conditioner", "swing")),
             ("babysitter",      ("kid", "children", "housekeeping")),
+            ("taxi",            ("driver", "drive", "pick", "ride")),
             ("gardener",        ("lawn", "flowers", "garden", "plant",
-                                 "gardn", "gardening", "mowed")),
+                                "gardn", "gardening", "mowed")),
+            ("housemaid",       ("waitress", "lady", "dishes", "laundry",
+                                 "menage")),
             ("couturier",       ("shirt", "fashion", "tailor", "clothe",
-                                 "t-shirt", "shir")),
+                                 "t-shirt")),
             ("car",             ("garage", "truk", "towing", "carburator", 
                                  "carburetor", "towin")),
-            ("carpooling",      ("getting", "lift", "carpool")),
+            ("event",           ("musician", "bouncer", "security", "DJ",
+                                 "sound")),
+            ("booking",         ("schedule", "meeting", "appointment",
+                                 "book", "pm", "am")),
             ("house",           ("residence", "apartment", "porch", "deck",
                                  "roof", "dec", "roof", "chimney", "ditch",
-                                 "doghouse", "tree", "fence", "paint")),
-            ("taxi",            ("driver", "drive", "pick", "ride")),
-            ("booking",         ("sppointment", "schedule", "meeting", "book")))
+                                 "doghouse", "tree", "fence", "paint",
+                                 "painter", "gutter")))
 
 
 """**************************** Read text file ******************************"""
@@ -139,7 +143,7 @@ def spell_check(tokens):
 """****************** Get the threshold value between 2 words ***************"""
 def get_threshold(w1, w2):
     if type(w1) == type(w2) == str:
-        if w1 == w2 or w1 == w2 + "s":
+        if w1 == w2 or w1 == w2 + "s" or w1 == w2 + "es":
             return 1
         else:
             try:
@@ -188,8 +192,8 @@ def recognition_process(args):
         words_dict = [get_synonyms(f[0]) for f in USER_FORM]
         for i, form in enumerate(USER_FORM):
             if type(form[1]) == tuple:
-                for j, word in enumerate(form[1]):
-                    words_dict[i].append(word)
+                for extra_word in form[1]:
+                    words_dict[i].append(extra_word)
                 
         dict_range = [range(len(l)) for l in words_dict]
         form_range = range(len(USER_FORM))
