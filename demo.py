@@ -197,14 +197,13 @@ def recognition_process(args):
     if type(args) == list and type(args[0]) == tuple:
         syn = [get_synonyms(f[0]) for f in USER_FORM]
         syn_range = [range(len(l)) for l in syn]
-        list_range = range(len(syn))
+        form_range = range(len(USER_FORM))
         threshold_max = index = int()
         for tag in args:
             if tag[1] == "NOUN" or tag[1] == "ADJ" or tag[1] == "VERB":
-                for form in USER_FORM:
-                    if corresponds_to_extra_words(form[0], tag[0]):
-                        return form[0]
-                for i in list_range:
+                for i in form_range:
+                    if corresponds_to_extra_words(USER_FORM[i][0], tag[0]):
+                        return USER_FORM[i][0]
                     for j in syn_range[i]:
                         threshold = get_threshold(tag[0], syn[i][j])
                         if threshold < THRESHOLD[0]:
