@@ -205,9 +205,9 @@ def recognition_process(args):
                     if corresponds_to_extra_words(USER_FORM[i][0], tag[0]):
                         return USER_FORM[i][0]
                     for j in syn_range[i]:
-                        threshold = get_threshold(tag[0], syn[i][j])
-                        if threshold >= THRESHOLD[0] and threshold_max < threshold:
-                            threshold_max = threshold
+                        tmp = get_threshold(tag[0], syn[i][j])
+                        if tmp >= THRESHOLD[0] and threshold_max < tmp:
+                            threshold_max = tmp
                             index = i
         if threshold_max:
             return USER_FORM[index][0]
