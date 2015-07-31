@@ -253,7 +253,6 @@ if __name__ == "__main__":
         print("\nVALID FORMAT:", format_is_valid)
         
         if format_is_valid:
-            pass
             print("\n\nTOKENS\n", tokens)
             print("\n\nSPELL CHECK\n", modif_tokens)
             print("\n\nFILTERED TOKENS\n", filt_tokens)
