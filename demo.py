@@ -152,7 +152,7 @@ def get_digits(tags):
 """************************** Recognition process ***************************"""
 def recognition_process(tags, userforms):
     if type(tags) == type(userforms) == list and type(tags[0]) == tuple:
-        threshold_max = 0
+        threshold_max = tmp = 0; userform_name = None
     
         # merge extra words and synonyms in one list for every userform
         for form in userforms:
@@ -168,8 +168,7 @@ def recognition_process(tags, userforms):
                             threshold_max = tmp
                             userform_name = form.__getitem__(0)
                             if threshold_max == 1: break
-        if threshold_max:
-            return userform_name
+        return userform_name
         
                         
 """******************************* Entry Point ******************************"""
