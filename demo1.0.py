@@ -34,11 +34,12 @@ MAX_DIST = (2,)
 MIN_LENGTH = (3,)
 THRESHOLD = (0.875,)
 SEN_FILE = ("sentences.txt",)
+
 USER_FORM = (#userform name     extra words
-            ("dentist",         None),
-            ("bodyguard",       None),
-            ("storage",         None),
-            ("loan",            None),
+            ("dentist",         ()),
+            ("bodyguard",       ()),
+            ("storage",         ()),
+            ("loan",            ()),
             ("dustman",         ("trash",)),
             ("snow",            ("shovel",)),
             ("caterer",         ("catrer",)),
@@ -193,9 +194,8 @@ def recognition_process(args):
         # merge extra words and synonyms in one list, for every userform
         words_dict = [get_synonyms(f[0]) for f in USER_FORM]
         for i, form in enumerate(USER_FORM):
-            if type(form[1]) == tuple:
-                for extra_word in form[1]:
-                    words_dict[i].append(extra_word)
+            for extra_word in form[1]:
+                words_dict[i].append(extra_word)
         
         dict_range = [range(len(l)) for l in words_dict]
         form_range = range(len(USER_FORM))
