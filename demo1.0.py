@@ -39,13 +39,13 @@ USER_FORM = (#userform name     extra words
             ("bodyguard",       None),
             ("storage",         None),
             ("loan",            None),
-            ("dustman",         ("trash", None)),
-            ("snow",            ("shovel", None)),
-            ("caterer",         ("catrer", None)),
-            ("mover",           ("moving", None)),
-            ("ticket",          ("hockey", None)),
-            ("therapist",       ("massage", None)),
-            ("tutor",           ("tutoring", None)),
+            ("dustman",         ("trash",)),
+            ("snow",            ("shovel",)),
+            ("caterer",         ("catrer",)),
+            ("mover",           ("moving",)),
+            ("ticket",          ("hockey",)),
+            ("therapist",       ("massage",)),
+            ("tutor",           ("tutoring",)),
             ("guide",           ("gide", "visit")),
             ("renting",         ("rent", "rant")),
             ("pool",            ("basin", "pol")),
@@ -196,8 +196,7 @@ def recognition_process(args):
             if type(form[1]) == tuple:
                 for extra_word in form[1]:
                     words_dict[i].append(extra_word)
-
-        # calling range and len methods before the main loop (optimisation)         
+        
         dict_range = [range(len(l)) for l in words_dict]
         form_range = range(len(USER_FORM))
         for tag in args:
