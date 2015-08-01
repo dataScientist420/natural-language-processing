@@ -8,11 +8,10 @@ caterer, catrer
 mover, moving
 ticket, hockey
 therapist, massage
-tutor, tutoring
+tutor, tutoring, teach, learn
 guide, gide, visit
 renting, rent, rant
 pool, basin, pol
-instructor, teach, learn
 trainer, gym, workout
 exterminator, roach, insect
 assembler, assemble, set
