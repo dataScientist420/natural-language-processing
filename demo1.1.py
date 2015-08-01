@@ -32,9 +32,9 @@ from nltk.metrics import edit_distance as dist
 
 
 """****************************** CONSTANTS *********************************"""
-MAX_DIST = (2, None)
-MIN_LENGTH = (3, None)
-THRESHOLD = (0.875, None)
+MAX_DIST = (2,)
+MIN_LENGTH = (3,)
+THRESHOLD = (0.875,)
 FILE_NAME = ("sentences.txt", "userforms.txt")
 
 

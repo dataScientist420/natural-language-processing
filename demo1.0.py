@@ -30,10 +30,10 @@ from nltk.metrics import edit_distance as dist
 
 
 """****************************** CONSTANTS *********************************"""
-SEN_FILE = ("sentences.txt", None)
-THRESHOLD = (0.875, None)
-MIN_LENGTH = (3, None)
-MAX_DIST = (2, None)
+MAX_DIST = (2,)
+MIN_LENGTH = (3,)
+THRESHOLD = (0.875,)
+SEN_FILE = ("sentences.txt",)
 USER_FORM = (#userform name     extra words
             ("dentist",         None),
             ("bodyguard",       None),
@@ -205,7 +205,7 @@ def recognition_process(args):
                 for i in form_range:
                     for j in dict_range[i]:
                         tmp = get_threshold(tag[0], words_dict[i][j])
-                        if tmp >= THRESHOLD[0] and threshold_max < tmp:
+                        if tmp >= THRESHOLD[0]:
                             threshold_max = tmp
                             index = i
                             if threshold_max == 1: break
