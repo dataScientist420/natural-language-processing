@@ -182,11 +182,11 @@ if __name__ == "__main__":
         print("\n" * 100)
         
         # read the sentences from file
-        sent_list = read_file(FILE_NAME[0], mode="sen")
+        sen_list = read_file(FILE_NAME[0], mode="sen")
 
         # select a sentence
-        index %= len(sent_list)
-        sentence = sent_list[index]
+        index %= len(sen_list)
+        sentence = sen_list[index]
         index += 1
 
         # validate the format
