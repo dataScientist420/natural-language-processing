@@ -1,0 +1,35 @@
+dentist
+bodyguard
+storage
+loan
+dustman, trash, garbage
+snow, shovel
+caterer, catrer
+mover, moving
+ticket, hockey
+therapist, massage
+tutor, tutoring
+guide, gide, visit
+renting, rent, rant
+pool, basin, pol
+instructor, teach, learn
+trainer, gym, workout
+exterminator, roach, insect
+assembler, assemble, set
+tattooist, tattoo, piercer
+veterinary, animal, cat, dog
+delivery, beer, bier, pizza
+carpooling, getting, lift, carpool
+plumber, toilet, conditioner, swing
+babysitter, kid, children
+taxi, driver, drive, pick, ride
+article, shoe, watch, perfume, dress
+photographer, picture, photo, pic, photograf, image
+programmer, developper, web, computer, network
+couturier, shirt, fashion, tailor, clothe, t-shirt
+gardener, lawn, flower, garden, plant, gardn, gardening, mowed
+housemaid, waitress, lady, dish, laundry, menage, housekeeping
+car, garage, truk, towing, carburator, carburetor
+event, musician, bouncer, security, DJ, sound, mix, song
+booking, schedule, meeting, appointment, book, pm, am
+house, residence, apartment, roof, chimney, ditch, doghouse, tree, fence, paint, painter, gutter, paving

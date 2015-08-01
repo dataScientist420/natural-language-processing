@@ -12,10 +12,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 Description: This code returns a userform name after analysing data from text file.
              The algorithms strategies use natural language processing techniques.
-
 File: demo.py
 Author: Victor Neville
 Python version: 3.4.0
@@ -32,7 +30,7 @@ from nltk.metrics import edit_distance as dist
 
 
 """****************************** CONSTANTS *********************************"""
-SEN_FILE = ("input.txt", None)
+SEN_FILE = ("sentences.txt", None)
 THRESHOLD = (0.875, None)
 MIN_LENGTH = (3, None)
 MAX_DIST = (2, None)
@@ -129,6 +127,7 @@ def get_synonyms(token):
 def spell_check(tokens):
     if type(tokens) == list:
         sd = enchant.Dict("en_US")
+        sd.add("!")
         length = len(tokens)
         new_tokens = [None]*length
         tokens_range = range(length)
