@@ -175,8 +175,7 @@ def recognition_process(tags, userforms):
 """******************************* Entry Point ******************************"""
 if __name__ == "__main__":
     # read the userforms from file
-    form_list = read_file(FILE_NAME[1], mode="form")
-    index = 0
+    form_list = read_file(FILE_NAME[1], mode="form"); index = 0
     while True: 
         # clearing the screen
         print("\n" * 100)
@@ -213,7 +212,6 @@ if __name__ == "__main__":
         print("\nVALID FORMAT:", format_is_valid)
         
         if format_is_valid:
-            pass
             print("\n\nTOKENS\n", tokens)
             print("\n\nSPELL CHECK\n", modif_tokens)
             print("\n\nFILTERED TOKENS\n", filt_tokens)
