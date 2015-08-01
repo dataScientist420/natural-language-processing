@@ -127,7 +127,7 @@ def get_synonyms(token):
 def spell_check(tokens):
     if type(tokens) == list:
         sd = enchant.Dict("en_US")
-        sd.add("!")
+        sd.add("!"); sd.add("$")
         length = len(tokens)
         new_tokens = [None]*length
         tokens_range = range(length)
