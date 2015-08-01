@@ -32,9 +32,8 @@ from nltk.metrics import edit_distance as dist
 """****************************** CONSTANTS *********************************"""
 MAX_DIST = (2,)
 MIN_LENGTH = (3,)
-THRESHOLD = (0.875,)
+THRESHOLD = (0.95,)
 SEN_FILE = ("sentences.txt",)
-
 USER_FORM = (#userform name     extra words
             ("dentist",         ()),
             ("bodyguard",       ()),
@@ -46,17 +45,16 @@ USER_FORM = (#userform name     extra words
             ("mover",           ("moving",)),
             ("ticket",          ("hockey",)),
             ("therapist",       ("massage",)),
-            ("tutor",           ("tutoring",)),
             ("guide",           ("gide", "visit")),
             ("renting",         ("rent", "rant")),
             ("pool",            ("basin", "pol")),
-            ("instructor",      ("teach", "learn")),
             ("trainer",         ("gym", "workout")),
             ("exterminator",    ("roach", "insect")),
             ("assembler",       ("set", "assemble")),
             ("tattooist",       ("tattoo", "piercer")),
             ("veterinary",      ("animal", "cat", "dog")),
             ("delivery",        ("bier", "beer", "pizza")),
+            ("tutor",           ("tutoring", "teach", "learn")),
             ("carpooling",      ("getting", "lift", "carpool")),
             ("plumber",         ("toilet", "conditioner", "swing")),
             ("babysitter",      ("kid", "children", "housekeeping")),
@@ -71,7 +69,7 @@ USER_FORM = (#userform name     extra words
             ("housemaid",       ("waitress", "lady", "dish", "laundry",
                                  "menage", "server")),
             ("car",             ("garage", "truk", "towing", "carburator", 
-                                 "carburetor")),
+                                 "carburetor", "truck")),
             ("event",           ("musician", "bouncer", "security", "DJ",
                                  "sound", "mix", "song")),
             ("booking",         ("schedule", "meeting", "appointment",
@@ -128,7 +126,7 @@ def get_synonyms(token):
 def spell_check(tokens):
     if type(tokens) == list:
         sd = enchant.Dict("en_US")
-        sd.add("!"); sd.add("$")
+        sd.add("!"); sd.add("$"); sd.add("?")
         length = len(tokens)
         new_tokens = [None]*length
         tokens_range = range(length)
