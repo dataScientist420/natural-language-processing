@@ -175,18 +175,18 @@ def recognition_process(tags, userforms):
 """******************************* Entry Point ******************************"""
 if __name__ == "__main__":
     # read the userforms from file
-    w_dict = read_file(FILE_NAME[1], mode="form")
+    form_list = read_file(FILE_NAME[1], mode="form")
     index = 0
     while True: 
         # clearing the screen
         print("\n" * 100)
         
         # read the sentences from file
-        l_sent = read_file(FILE_NAME[0], mode="sen")
+        sent_list = read_file(FILE_NAME[0], mode="sen")
 
         # select a sentence
-        index %= len(l_sent)
-        sentence = l_sent[index]
+        index %= len(sent_list)
+        sentence = sent_list[index]
         index += 1
 
         # validate the format
@@ -207,7 +207,7 @@ if __name__ == "__main__":
             tags = pos_tag(filt_tokens, tagset="universal")
         
             # relation recognition
-            user_form = recognition_process(tags, w_dict)
+            user_form = recognition_process(tags, form_list)
     
         print("\nSENTENCE #%d\n" %(index), sentence)
         print("\nVALID FORMAT:", format_is_valid)
