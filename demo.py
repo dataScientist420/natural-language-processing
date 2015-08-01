@@ -158,7 +158,7 @@ def recognition_process(tags, userforms):
         for form in userforms:
             form.append(get_synonyms(form.__getitem__(0)))
 
-        # strategy: try to find the best match between 2 words (maximum treshold)    
+        # strategy: try to find the best match between each token and the userforms    
         for tag in tags:
             if tag[1] == "NOUN" or tag[1] == "ADJ" or tag[1] == "VERB":
                 for form in userforms:
