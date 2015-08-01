@@ -56,7 +56,8 @@ def read_file(name, mode=None):
             for s in l_sent:
                 tokens = tokenize.word_tokenize(s)
                 userform.append([w for w in tokens if w.isalnum()])
-        return userform
+            return userform
+        else: return []
 
 
 """**************** Convert word to num to represent hours  *****************"""
