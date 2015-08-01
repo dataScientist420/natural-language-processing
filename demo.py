@@ -150,23 +150,23 @@ def get_digits(tags):
 
     
 """************************** Recognition process ***************************"""
-def recognition_process(tags, form):
-    if type(tags) == list and type(tags[0]) == tuple and type(form) == list:
+def recognition_process(tags, userforms):
+    if type(tags) == type(userforms) == list and type(tags[0]) == tuple:
         threshold_max = 0
     
         # merge extra words and synonyms in one list for every userform
-        for __list in form:
-            __list.append(get_synonyms(__list.__getitem__(0)))
+        for form in userforms:
+            form.append(get_synonyms(form.__getitem__(0)))
 
         # strategy: try to find the best match between 2 words (maximum treshold)    
         for tag in tags:
             if tag[1] == "NOUN" or tag[1] == "ADJ" or tag[1] == "VERB":
-                for __list in form:
-                    for w in __list:
-                        tmp = get_threshold(tag[0], w)
+                for form in userforms:
+                    for word in form:
+                        tmp = get_threshold(tag[0], word)
                         if tmp >= THRESHOLD[0] and threshold_max < tmp:
                             threshold_max = tmp
-                            userform_name = __list.__getitem__(0)
+                            userform_name = form.__getitem__(0)
                             if threshold_max == 1: break
         if threshold_max:
             return userform_name
