@@ -52,7 +52,7 @@ def read_file(name, mode=None):
         if mode == "sen":
             return l_sent
         elif mode == "form":
-            userform = []; tokens = []
+            userform = tokens = []
             for s in l_sent:
                 tokens = tokenize.word_tokenize(s)
                 userform.append([w for w in tokens if w.isalnum()])
