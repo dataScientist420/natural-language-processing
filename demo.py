@@ -38,6 +38,12 @@ THRESHOLD = (0.7,)
 FILE_NAME = ("sentences.txt", "userforms.txt")
 
 
+"""****************************** GLOBAL VAR *********************************"""
+NUMBER = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
+          "six": 6, "seven": 7, "eight": 8, "nine": 9,"ten": 10,
+          "eleven": 11, "twelve": 12, "midnight": 0, "noon": 12}
+
+
 """**************************** Read text file ******************************"""
 def read_file(name, mode=None):
     if type(name) == str:
@@ -60,23 +66,6 @@ def read_file(name, mode=None):
         else: return []
 
 
-"""**************** Convert word to num to represent hours  *****************"""
-def word_to_num(token):
-    if type(token) == str:
-        if token == "one":    return 1
-        if token == "two":    return 2
-        if token == "three":  return 3
-        if token == "four":   return 4
-        if token == "five":   return 5
-        if token == "six":    return 6
-        if token == "seven":  return 7
-        if token == "eight":  return 8
-        if token == "nine":   return 9
-        if token == "ten":    return 10
-        if token == "eleven": return 11
-        if token == "twelve": return 12
-
-
 """**************** Create a list of synonyms for the word arg **************"""
 def get_synonyms(token):
     synonyms = []
@@ -92,15 +81,21 @@ def get_synonyms(token):
 def spell_check(tokens):
     if type(tokens) == list:
         sd = enchant.Dict("en_US")
-        sd.add("!"); sd.add("?"); sd.add("$")
+        # add extra word to the dictionnary
+        if not sd.is_added("$"):  
+            sd.add_to_session("$")
+            
         new_tokens = list()
         for word in tokens:
-            suggestions = sd.suggest(word)
             if sd.check(word):
                new_tokens.append(word)
-            elif suggestions and dist(word, suggestions[0]) <= MAX_DIST[0]:
-                new_tokens.append(suggestions[0])
-            else: new_tokens.append(word)
+            else:
+                suggestions = sd.suggest(word)
+                for sug in suggestions:
+                    distance = dist(word, sug)
+                    if distance <= MAX_DIST[0]:
+                        new_tokens.append(sug)
+                        break
         return new_tokens
     return []
 
@@ -143,7 +138,7 @@ def get_digits(tags):
                 if t[0].isdigit():
                     digits.append(int(t[0]))
                 else:
-                    digits.append(word_to_num(t[0]))
+                    digits.append(NUMBER[t[0]])
         digits.sort()
     return digits
 
