@@ -34,8 +34,8 @@ from nltk.metrics import edit_distance as dist
 """****************************** CONSTANTS *********************************"""
 MAX_DIST = (2,)
 MIN_LENGTH = (3,)
-THRESHOLD = (0.95,)
-FILE_NAME = ("sentences.txt", "userforms.txt")
+THRESHOLD = (0.7,)
+FILE_NAME = ("sentences.txt", "userforms2.txt")
 
 
 """**************************** Read text file ******************************"""
@@ -93,16 +93,14 @@ def spell_check(tokens):
     if type(tokens) == list:
         sd = enchant.Dict("en_US")
         sd.add("!"); sd.add("?"); sd.add("$")
-        length = len(tokens)
-        new_tokens = [None]*length
-        tokens_range = range(length)
-        for i in tokens_range:
-            suggestions = sd.suggest(tokens[i])
-            if sd.check(tokens[i]):
-                new_tokens[i] = tokens[i]
-            elif suggestions and dist(tokens[i], suggestions[0]) <= MAX_DIST[0]:
-                new_tokens[i] = suggestions[0]
-            else: new_tokens[i] = tokens[i]
+        new_tokens = list()
+        for word in tokens:
+            suggestions = sd.suggest(word)
+            if sd.check(word):
+               new_tokens.append(word)
+            elif suggestions and dist(word, suggestions[0]) <= MAX_DIST[0]:
+                new_tokens.append(suggestions[0])
+            else: new_tokens.append(word)
         return new_tokens
     return []
 
@@ -168,14 +166,15 @@ def recognition_process(tags, userforms):
                         if tmp >= THRESHOLD[0] and threshold_max < tmp:
                             threshold_max = tmp
                             userform_name = form.__getitem__(0)
-                            if threshold_max == 1: break
+                            if threshold_max == 1:
+                                break
         return userform_name
         
                         
 """******************************* Entry Point ******************************"""
 if __name__ == "__main__":
     # read the userforms from file
-    form_list = read_file(FILE_NAME[1], mode="form"); index = 0
+    form_list = read_file(FILE_NAME[1], mode="form"); index=0
     while True: 
         # clearing the screen
         print("\n" * 100)
