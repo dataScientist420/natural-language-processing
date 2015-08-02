@@ -1,34 +1,35 @@
-dentist
-bodyguard
-storage
-loan
-dustman, trash, garbage
-snow, shovel
-caterer, catrer
-mover, moving
-ticket, hockey
-therapist, massage
-tutor, tutoring, teach, learn
-guide, gide, visit
-renting, rent, rant
-pool, basin, pol
+dentist, tooth, dental
+bodyguard, escort
+storage, storehouse, depot, entrepot, warehousing
+loan, loanword, lend
+dustman, trash, garbage, garbageman, collection
+snow, shovel, snowfall,
+caterer, cater
+mover, moving, removal
+ticket, coupon
+therapist, massage, healer
+tutor, tutoring, teach, learn, coach, instructor, professor
+guide, gide, visit, guidebook, scout, pathfinder, leader
+renting, rent, rant, rental, lease, let hire, engage, take, charter
+pool, basin, pond, puddle
 trainer, gym, workout
-exterminator, roach, insect
+exterminator, roach, insect, eradicator
 assembler, assemble, set
 tattooist, tattoo, piercer
-veterinary, animal, cat, dog
-delivery, beer, bier, pizza
+veterinary, animal, cat, dog, veterinarian, vet
+delivery, beer, bier, pizza, bringing
 carpooling, getting, lift, carpool
-plumber, toilet, conditioner, swing
-babysitter, kid, children
-taxi, driver, drive, pick, ride
+plumber, toilet, pipe, water heater, pipes
+babysitter, kid, children, baby-sitter, sitter
+taxi, driver, drive, pick, ride, cab, taxicab
 article, shoe, watch, perfume, dress
-photographer, picture, photo, pic, photograf, image
-programmer, developper, web, computer, network
-couturier, shirt, fashion, tailor, clothe, t-shirt
-gardener, lawn, flower, garden, plant, gardn, gardening, mowed
+groceries, milk, bread, ketchup, eggs, mayonnaise, mustard, grocery, food, market
+photographer, picture, photo, pic, photograf, image, lensman
+programmer, developper, web, computer, network, coder, software
+couturier, shirt, fashion, tailor, clothe, t-shirt, clothes
+gardener, lawn, flower, garden, plant, flowers, earth, gardening, mowed, mow
 housemaid, waitress, lady, dish, laundry, menage, housekeeping
-car, garage, truk, towing, carburator, carburetor
+car, garage, truck, towing, carburator, auto, automobile, motorcar
 event, musician, bouncer, security, DJ, sound, mix, song
-booking, schedule, meeting, appointment, book, pm, am
-house, residence, apartment, roof, chimney, ditch, doghouse, tree, fence, paint, painter, gutter, paving
+booking, schedule, meeting, appointment, book, reservation, reserve, hold
+house, residence, apartment, roof, chimney, ditch, doghouse, tree, fence, paint, painter, gutter, paving, mansion, household
