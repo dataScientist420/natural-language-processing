@@ -35,7 +35,7 @@ from nltk.metrics import edit_distance as dist
 MAX_DIST = (2,)
 MIN_LENGTH = (3,)
 THRESHOLD = (0.7,)
-FILE_NAME = ("sentences.txt", "userforms2.txt")
+FILE_NAME = ("sentences.txt", "userforms.txt")
 
 
 """**************************** Read text file ******************************"""
