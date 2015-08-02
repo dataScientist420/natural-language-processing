@@ -38,7 +38,7 @@ THRESHOLD = (0.7,)
 FILE_NAME = ("sentences.txt", "userforms.txt")
 
 
-"""****************************** GLOBAL VAR *********************************"""
+"""****************************** GLOBAL VAR ********************************"""
 NUMBER = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
           "six": 6, "seven": 7, "eight": 8, "nine": 9,"ten": 10,
           "eleven": 11, "twelve": 12, "midnight": 0, "noon": 12}
