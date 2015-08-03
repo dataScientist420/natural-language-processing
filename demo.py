@@ -34,7 +34,7 @@ from nltk.metrics import edit_distance as dist
 """****************************** CONSTANTS *********************************"""
 MAX_DIST = (2,)
 MIN_LENGTH = (3,)
-THRESHOLD = (0.8,)
+THRESHOLD = (0.9,)
 FILE_NAME = ("sentences.txt", "userforms.txt")
 
 
@@ -139,7 +139,8 @@ def get_digits(tags):
                 if t[0].isdigit():
                     digits.append(int(t[0]))
                 else:
-                    digits.append(NUMBER[t[0]])
+                    try: digits.append(NUMBER[t[0]])
+                    except: continue
         digits.sort()
     return digits
 
