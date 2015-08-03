@@ -61,7 +61,8 @@ def read_file(name, mode=None):
             userform = tokens = []
             for s in l_sent:
                 tokens = tokenize.word_tokenize(s)
-                userform.append([w for w in tokens if w.isalnum()])
+                userform.append([w for w in tokens if w.isalnum()])          
+                userform.append(get_synonyms(userform.__getitem__(0)))
             return userform
     return []
 
@@ -149,10 +150,6 @@ def get_digits(tags):
 def recognition_process(tags, userforms):
     if type(tags) == type(userforms) == list:
         threshold_max = 0; userform_name = None
-    
-        # merge extra words and synonyms in one list for every userform
-        for form in userforms:
-            form.append(get_synonyms(form.__getitem__(0)))
 
         # strategy: try to find the best match between each token and the userforms    
         for tag in tags:
