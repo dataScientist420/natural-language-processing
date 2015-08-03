@@ -34,7 +34,7 @@ from nltk.metrics import edit_distance as dist
 """****************************** CONSTANTS *********************************"""
 MAX_DIST = (2,)
 MIN_LENGTH = (3,)
-THRESHOLD = (0.7,)
+THRESHOLD = (0.8,)
 FILE_NAME = ("sentences.txt", "userforms.txt")
 
 
@@ -63,7 +63,7 @@ def read_file(name, mode=None):
                 tokens = tokenize.word_tokenize(s)
                 userform.append([w for w in tokens if w.isalnum()])
             return userform
-        else: return []
+    return []
 
 
 """**************** Create a list of synonyms for the word arg **************"""
@@ -81,6 +81,7 @@ def get_synonyms(token):
 def spell_check(tokens):
     if type(tokens) == list:
         sd = enchant.Dict("en_US")
+        
         # add extra word to the dictionnary
         if not sd.is_added("$"):  
             sd.add_to_session("$")
@@ -132,7 +133,7 @@ def validate_format(sen):
 """*********************** Get digits from the tags list ********************"""
 def get_digits(tags):
     digits = []
-    if type(tags) == list and type(tags[0]) == tuple:
+    if type(tags) == list:
         for t in tags:
             if t[1] == "NUM":
                 if t[0].isdigit():
@@ -145,8 +146,8 @@ def get_digits(tags):
     
 """************************** Recognition process ***************************"""
 def recognition_process(tags, userforms):
-    if type(tags) == type(userforms) == list and type(tags[0]) == tuple:
-        threshold_max = tmp = 0; userform_name = None
+    if type(tags) == type(userforms) == list:
+        threshold_max = 0; userform_name = None
     
         # merge extra words and synonyms in one list for every userform
         for form in userforms:
