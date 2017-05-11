@@ -1,26 +1,25 @@
-    #!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+ 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""***************************************************************************** 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# Description: This code returns a userform name after analysing data 
+#			   from text file. The algorithms strategies use natural 
+#			   language processing techniques.
 
-Description: This code returns a userform name after analysing data from text file.
-             The algorithms strategies use natural language processing techniques.
-
-File: demo.py
-Author: Victor Neville
-Python version: 3.4.0
-Date: 07-06-2015
-*****************************************************************************"""
+# @file: demo.py
+# @author: Victor Neville
+# @python version: 3.4.0
+# @date: 07-06-2015
 
 import sys
 import enchant
@@ -30,23 +29,24 @@ from nltk.corpus import wordnet
 from nltk.corpus import stopwords as stop
 from nltk.metrics import edit_distance as dist
 
-
-"""****************************** CONSTANTS *********************************"""
+################################# GLOBALS #####################################
 MAX_DIST = (2,)
 MIN_LENGTH = (3,)
 THRESHOLD = (0.9,)
 FILE_NAME = ("sentences.txt", "userforms.txt")
-
-
-"""****************************** GLOBAL VAR ********************************"""
 NUMBER = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
           "six": 6, "seven": 7, "eight": 8, "nine": 9,"ten": 10,
           "eleven": 11, "twelve": 12, "midnight": 0, "noon": 12}
 
-
-"""**************************** Read text file ******************************"""
+###############################################################################
+    # @name: read_file
+    # @description: Allows the user to read a text file.
+    # @inputs:
+    # - name: the file name
+    # - mode: the reading mode (sentences of form)
+    # @returns: a list containing the text tokens
 def read_file(name, mode=None):
-    if type(name) == str:
+    if isinstance(name, str):
         try:
             with open(name) as file:
                 l_sent = file.readlines()
@@ -66,21 +66,29 @@ def read_file(name, mode=None):
             return userform
     return []
 
-
-"""**************** Create a list of synonyms for the word arg **************"""
+###############################################################################
+    # @name: get_synonyms
+    # @description: Creates a list of synonyms for the token argument.
+    # @inputs:
+    # - token: a word
+    # @returns: a list containing the token synonyms
 def get_synonyms(token):
     synonyms = []
-    if type(token) == str:
+    if isinstance(token, str):
         for s in wordnet.synsets(token):
             for w in s.lemmas():
                 try: synonyms.append(w.name())
                 except: continue
     return synonyms
 
-
-"""********************* Create a list for spell check **********************"""
+###############################################################################
+    # @name: spell_check
+    # @description: Creates a list with corrected spelling errors.
+    # @inputs:
+    # - tokens: a list of words
+    # @returns: a list with corrected spelling errors
 def spell_check(tokens):
-    if type(tokens) == list:
+    if isinstance(tokens, list):
         sd = enchant.Dict("en_US")
         
         # add extra word to the dictionnary
@@ -101,59 +109,83 @@ def spell_check(tokens):
         return new_tokens
     return []
 
-
-"""****************** Get the threshold value between 2 words ***************"""
+###############################################################################
+    # @name: get_threshold
+    # @description: Gets the threshold value of 2 words.
+    # @inputs:
+    # - w1: the first word
+    # - w2: the second word
+    # @returns: a threshold value [0.0, 1.0]
 def get_threshold(w1, w2):
-    if type(w1) == type(w2) == str:
+    if isinstance(w1, str) and isinstance(w2, str):
         if w1 == w2 or w1 == w2 + "s" or w1 == w2 + "es":
-            return 1
+            return 1.0
         else:
             try:
                 syn1 = wordnet.synset(w1+".n.01")
                 syn2 = wordnet.synset(w2+".n.01")
                 return syn1.wup_similarity(syn2)
-            except: return 0
-    return 0
+            except: 
+            	return 0.0
+    return 0.0
 
-
-"""********************** Validate the sentence format **********************"""
+###############################################################################
+    # @name: validate_format
+    # @description: It validates the sentence format.
+    # @inputs:
+    # - sen: a string containing a sentence
+    # @returns: True if sentence is valid, else False
 def validate_format(sen):
-    if type(sen) == str:
-        length = len(sen); sen_range = range(length) 
+    if isinstance(sen, str):
+        length = len(sen) 
+         
         if length > MIN_LENGTH[0]:
             flag = False
-            for i in sen_range:         
-                if sen[i] == "." or sen[i] == "!" or sen[i] == "?" and not flag:
+            for i in range(length):         
+                if sen[i] in ("." , "!", "?") and not flag:
                     flag = True
                 elif flag and sen[i].isalnum():
                     return False
             return True
     return False
 
-
-"""*********************** Get digits from the tags list ********************"""
+###############################################################################
+    # @name: get_digits
+    # @description: Returns a list with digits related to the tags argument.
+    # @inputs:
+    # - tags: a list containing the tags
+    # @returns: a list containing digits
 def get_digits(tags):
     digits = []
-    if type(tags) == list:
+    
+    if isinstance(tags, list):
         for t in tags:
             if t[1] == "NUM":
                 if t[0].isdigit():
                     digits.append(int(t[0]))
                 else:
-                    try: digits.append(NUMBER[t[0]])
+                    try: 
+                    	digits.append(NUMBER[t[0]])
                     except: continue
         digits.sort()
+        
     return digits
 
-    
-"""************************** Recognition process ***************************"""
+###############################################################################
+    # @name: recognition_process
+    # @description: It associates text with a form.
+    # @inputs:
+    # - tags: a list containing the tags
+    # - userforms: a list containing the userforms names
+    # @returns: a user form name
 def recognition_process(tags, userforms):
-    if type(tags) == type(userforms) == list:
-        threshold_max = 0; userform_name = None
+    if isinstance(tags, list) and isinstance(userforms, list):
+        threshold_max = 0.0
+        userform_name = None
 
-        # strategy: try to find the best match between each token and the userforms    
+        # try to find the best match between each token and forms    
         for tag in tags:
-            if tag[1] == "NOUN" or tag[1] == "ADJ" or tag[1] == "VERB":
+            if tag[1] in ("NOUN", "ADJ", "VERB"):
                 for form in userforms:
                     for word in form:
                         tmp = get_threshold(tag[0], word)
@@ -164,12 +196,15 @@ def recognition_process(tags, userforms):
                                 break
         return userform_name
         
-                        
-"""******************************* Entry Point ******************************"""
+                  
+# Entry Point 
 if __name__ == "__main__":
     # read the userforms from file
-    form_list = read_file(FILE_NAME[1], mode="form"); index=0
-    while True: 
+    form_list = read_file(FILE_NAME[1], mode="form")
+    index = 0
+    done = False
+    
+    while not done: 
         # clearing the screen
         print("\n" * 100)
         
@@ -214,5 +249,4 @@ if __name__ == "__main__":
 
         # ending the program or not ?
         if sys.stdin.read(1).lower() == "q":
-            break
-
+            done = True
