@@ -10,8 +10,8 @@ content, correct spelling errors and associate text with a form (Bachelor Final 
  su -
  apt-get install python3-pip
  pip3 --upgrade pip
- pip3 install pyyaml numpy
- pip3 install pyyaml nltk
+ pip3 install -U numpy
+ pip3 install -U pyyaml nltk
  pip3 install setuptools
  pip3 install pyenchant
  exit
